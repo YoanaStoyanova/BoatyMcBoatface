@@ -28,4 +28,6 @@ hs_err_pid*
 
 raget/**
 boaty-service/target
-boaty-app/target
+
+# UI stuff
+**/node_modules/**
