@@ -14,3 +14,9 @@ The following guides illustrate how to use some features concretely:
 
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
+
+## Run the project
+ * Install docker
+ * build using ``mvn clean install``
+ * run the database using ``docker run -p5432:5432 -e POSTGRES_PASSWORD=ticketing -e POSTGRES_USER=ticketing -e POSTGRES_DB=ticketing -d postgres``
+ * run the service java -jar boaty-service/target/boaty-service-1.0-SNAPSHOT.jar
