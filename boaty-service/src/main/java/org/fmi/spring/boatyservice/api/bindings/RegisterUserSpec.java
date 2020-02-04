@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-public class CreateUserSpec {
+public class RegisterUserSpec {
 
     @Email
     @NotEmpty

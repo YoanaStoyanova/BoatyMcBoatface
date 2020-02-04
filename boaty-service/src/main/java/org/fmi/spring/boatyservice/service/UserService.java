@@ -1,19 +1,25 @@
 package org.fmi.spring.boatyservice.service;
 
-import org.fmi.spring.boatyservice.api.bindings.CreateUserSpec;
+import org.fmi.spring.boatyservice.api.bindings.RegisterUserSpec;
+import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
+import org.fmi.spring.boatyservice.api.bindings.UserRoleSpec;
 import org.fmi.spring.boatyservice.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    User createUser(CreateUserSpec userSpec);
+    User register(RegisterUserSpec userSpec);
 
-    Page<User> listUsers(Pageable pageRequest);
+    Page<User> list(Pageable pageRequest);
 
-    User getUser(Long id);
+    User loadById(Long id);
 
-    User updateUser(Long id, CreateUserSpec userSpec);
+    User loadByUsername(String username);
 
-    void deleteUser(Long userId);
+    User updateUserDetails(Long id, UserDetailsSpec userSpec);
+
+    User updateUserRoles(Long id, UserRoleSpec userRoleSpec);
+
+    void delete(Long userId);
 }

@@ -1,14 +1,14 @@
-package org.fmi.spring.boatyservice.security;
+package org.fmi.spring.boatyservice.security.authentication;
 
 import org.fmi.spring.boatyservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Service
+public class AuthUserDetails implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;

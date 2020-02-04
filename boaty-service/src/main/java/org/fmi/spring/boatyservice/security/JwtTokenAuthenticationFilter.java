@@ -8,20 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.fmi.spring.boatyservice.exception.ApplicationException;
+import org.fmi.spring.boatyservice.security.authentication.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
 
 @Component
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
@@ -30,10 +22,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     static final String AUTH_HEADER_PREFIX = "Bearer ";
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private AuthenticationManager authenticationManager;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -41,9 +30,8 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
         String token = resolveToken(request);
         try {
-            if (token != null && validateToken(token)) {
-                Authentication auth = getAuthentication(token);
-                userDetailsService.loadUserByUsername(auth.getName());
+            if (token != null) {
+                Authentication auth = authenticationManager.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         } catch (ApplicationException ex) {
@@ -63,20 +51,4 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    private Authentication getAuthentication(String token) {
-        Jws<Claims> claims = jwtTokenProvider.parseToken(token);
-        UserDetails principal = userDetailsService.loadUserByUsername(claims.getBody().getSubject());
-        return new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());
-    }
-
-    private boolean validateToken(String token) {
-        try {
-            jwtTokenProvider.parseToken(token);
-            return true;
-        } catch (ExpiredJwtException e) {
-            throw new ApplicationException("Expired JWT token", HttpStatus.UNAUTHORIZED);
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new ApplicationException("Invalid JWT token", HttpStatus.BAD_REQUEST);
-        }
-    }
 }

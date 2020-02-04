@@ -1,7 +1,11 @@
 package org.fmi.spring.boatyservice.api;
 
-import org.fmi.spring.boatyservice.api.bindings.CreateUserSpec;
+import org.fmi.spring.boatyservice.api.bindings.PagedResponse;
+import org.fmi.spring.boatyservice.api.bindings.RegisterUserSpec;
 import org.fmi.spring.boatyservice.api.bindings.UserDetails;
+import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
+import org.fmi.spring.boatyservice.api.bindings.UserRoleSpec;
+import org.fmi.spring.boatyservice.security.authentication.AuthUtil;
 import org.fmi.spring.boatyservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,33 +31,44 @@ public class UserOps {
     private UserService userService;
 
     @PostMapping
-    UserDetails createUser(@RequestBody CreateUserSpec userSpec) {
-        return new UserDetails(userService.createUser(userSpec));
+    UserDetails createUser(@RequestBody RegisterUserSpec userSpec) {
+        return new UserDetails(userService.register(userSpec));
     }
 
     @RequestMapping
-    Page<UserDetails> viewUsers(
+    PagedResponse<UserDetails> viewUsers(
         @RequestParam(name="page", defaultValue = "0") int page,
         @RequestParam(name="size", defaultValue = "20") int size,
         @RequestParam(name = "direction", defaultValue = "ASC") String sortDirection) {
 
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), DEFAULT_SORT_PROPERTY);
-        return userService.listUsers(PageRequest.of(page, size, sort)).map(UserDetails::new);
+        Page<UserDetails> userDetailsPage = userService.list(PageRequest.of(page, size, sort))
+            .map(UserDetails::new);
+        return new PagedResponse<>(userDetailsPage);
     }
 
     @GetMapping("/{id}")
     UserDetails getUser(@PathVariable(name="id") long id) {
-        return new UserDetails(userService.getUser(id));
+        return new UserDetails(userService.loadById(id));
     }
 
     @PatchMapping("/{id}")
-    UserDetails updateUser(@PathVariable(name = "id") long id, @RequestBody CreateUserSpec userSpec) {
-        return new UserDetails(userService.updateUser(id, userSpec));
+    UserDetails updateUserDetails(@PathVariable(name = "id") long id, @RequestBody UserDetailsSpec userSpec) {
+        return new UserDetails(userService.updateUserDetails(id, userSpec));
     }
 
     @DeleteMapping("/{id}")
     void deleteUser(@PathVariable(name = "{id}") long id) {
-        userService.deleteUser(id);
+        userService.delete(id);
     }
 
+    @PostMapping("/{id}/roles")
+    UserDetails updateUserRoles(@PathVariable(name = "id") long id, @RequestBody UserRoleSpec userRoleSpec) {
+        return new UserDetails(userService.updateUserRoles(id, userRoleSpec));
+    }
+
+    @GetMapping("/me")
+    UserDetails getCurrentUser() {
+        return new UserDetails(userService.loadByUsername(AuthUtil.currentUser()));
+    }
 }
