@@ -1,12 +1,8 @@
 package org.fmi.spring.boatyservice.service.impl;
 
-import java.util.Arrays;
-
 import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
-import org.fmi.spring.boatyservice.api.bindings.UserRoleSpec;
 import org.fmi.spring.boatyservice.exception.ApplicationException;
 import org.fmi.spring.boatyservice.model.User;
-import org.fmi.spring.boatyservice.security.authentication.UserRole;
 import org.fmi.spring.boatyservice.repository.UserRepository;
 import org.fmi.spring.boatyservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +38,6 @@ public class UserServiceImpl implements UserService {
         if (!ObjectUtils.isEmpty(userSpec.lastName)) {
             user.setLastName(userSpec.lastName);
         }
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User updateUserRoles(Long id, UserRoleSpec userRoleSpec) {
-        User user = loadById(id);
-        UserRole newRole = Arrays.stream(UserRole.values())
-            .filter(role -> role.name().equals(userRoleSpec.role))
-            .findFirst()
-            .orElseThrow(() -> {
-                String errorMessage = String.format("Invalid role name %s", userRoleSpec.role);
-                return new ApplicationException(errorMessage, HttpStatus.BAD_REQUEST);
-            });
-        user.setRole(newRole);
         return userRepository.save(user);
     }
 

@@ -4,7 +4,6 @@ import org.fmi.spring.boatyservice.api.bindings.PagedResponse;
 import org.fmi.spring.boatyservice.api.bindings.RegisterUserSpec;
 import org.fmi.spring.boatyservice.api.bindings.UserDetails;
 import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
-import org.fmi.spring.boatyservice.api.bindings.UserRoleSpec;
 import org.fmi.spring.boatyservice.service.UserRegistrationService;
 import org.fmi.spring.boatyservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +62,5 @@ public class UserOps {
     @DeleteMapping("/{id}")
     void deleteUser(@PathVariable(name = "{id}") long id) {
         userService.delete(id);
-    }
-
-    @PostMapping("/{id}/roles")
-    UserDetails updateUserRoles(@PathVariable(name = "id") long id, @RequestBody UserRoleSpec userRoleSpec) {
-        return new UserDetails(userService.updateUserRoles(id, userRoleSpec));
     }
 }
