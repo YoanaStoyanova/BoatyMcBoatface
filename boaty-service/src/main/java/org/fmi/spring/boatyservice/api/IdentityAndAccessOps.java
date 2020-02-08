@@ -1,25 +1,32 @@
 package org.fmi.spring.boatyservice.api;
 
+import org.fmi.spring.boatyservice.api.bindings.UserDetails;
+import org.fmi.spring.boatyservice.model.User;
 import org.fmi.spring.boatyservice.security.authentication.AuthUtil;
 import org.fmi.spring.boatyservice.security.token.AuthToken;
 import org.fmi.spring.boatyservice.security.token.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/tokens")
-public class TokenOps {
+public class IdentityAndAccessOps {
 
     @Autowired
     private TokenProvider tokenProvider;
 
-    @GetMapping
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @GetMapping("/api/tokens")
     AuthToken getUserToken() {
         return tokenProvider.createToken(AuthUtil.currentUser());
     }
 
+    @GetMapping("/api/me")
+    UserDetails getCurrentUser() {
+        User user = (User) userDetailsService.loadUserByUsername(AuthUtil.currentUser());
+        return new UserDetails(user);
+    }
 }

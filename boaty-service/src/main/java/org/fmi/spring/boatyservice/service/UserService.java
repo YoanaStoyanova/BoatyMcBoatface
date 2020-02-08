@@ -9,13 +9,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    User register(RegisterUserSpec userSpec);
-
     Page<User> list(Pageable pageRequest);
 
     User loadById(Long id);
-
-    User loadByUsername(String username);
 
     User updateUserDetails(Long id, UserDetailsSpec userSpec);
 

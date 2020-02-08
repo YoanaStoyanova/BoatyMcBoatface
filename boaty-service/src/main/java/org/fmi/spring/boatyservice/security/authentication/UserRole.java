@@ -1,4 +1,4 @@
-package org.fmi.spring.boatyservice.model;
+package org.fmi.spring.boatyservice.security.authentication;
 
 import org.springframework.security.core.GrantedAuthority;
 

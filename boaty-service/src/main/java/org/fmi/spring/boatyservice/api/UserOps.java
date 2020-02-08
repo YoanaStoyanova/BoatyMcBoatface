@@ -5,7 +5,7 @@ import org.fmi.spring.boatyservice.api.bindings.RegisterUserSpec;
 import org.fmi.spring.boatyservice.api.bindings.UserDetails;
 import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
 import org.fmi.spring.boatyservice.api.bindings.UserRoleSpec;
-import org.fmi.spring.boatyservice.security.authentication.AuthUtil;
+import org.fmi.spring.boatyservice.service.UserRegistrationService;
 import org.fmi.spring.boatyservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,9 +30,12 @@ public class UserOps {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRegistrationService userRegistrationService;
+
     @PostMapping
     UserDetails createUser(@RequestBody RegisterUserSpec userSpec) {
-        return new UserDetails(userService.register(userSpec));
+        return new UserDetails(userRegistrationService.register(userSpec));
     }
 
     @RequestMapping
@@ -65,10 +68,5 @@ public class UserOps {
     @PostMapping("/{id}/roles")
     UserDetails updateUserRoles(@PathVariable(name = "id") long id, @RequestBody UserRoleSpec userRoleSpec) {
         return new UserDetails(userService.updateUserRoles(id, userRoleSpec));
-    }
-
-    @GetMapping("/me")
-    UserDetails getCurrentUser() {
-        return new UserDetails(userService.loadByUsername(AuthUtil.currentUser()));
     }
 }
