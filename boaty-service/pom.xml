@@ -38,6 +38,141 @@
              <groupId>org.springframework.boot</groupId>
              <artifactId>spring-boot-maven-plugin</artifactId>
           </plugin>
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-antrun-plugin</artifactId>
+               <version>1.8</version>
+               <executions>
+                   <execution>
+                       <id>check-start-docker</id>
+                       <phase>validate</phase>
+                       <goals>
+                           <goal>run</goal>
+                       </goals>
+                       <configuration>
+                           <exportAntProperties>true</exportAntProperties>
+                           <target>
+                               <property name="interactiveMode" value="false" />
+                           </target>
+                       </configuration>
+                   </execution>
+                   <execution>
+                       <id>set-default-properties</id>
+                       <phase>validate</phase>
+                       <goals>
+                           <goal>run</goal>
+                       </goals>
+                       <configuration>
+                           <exportAntProperties>true</exportAntProperties>
+                           <target>
+                               <condition property="test.ps.port" value="5432">
+                                   <not>
+                                       <isset property="test.ps.port"/>
+                                   </not>
+                               </condition>
+                               <condition property="boaty.test.port" value="8080">
+                                   <not>
+                                       <isset property="boaty.test.port"/>
+                                   </not>
+                               </condition>
+                               <condition property="boaty.db.user" value="ticketing">
+                                   <not>
+                                       <isset property="boaty.db.user"/>
+                                   </not>
+                               </condition>
+                               <condition property="boaty.db.pass" value="ticketing">
+                                   <not>
+                                       <isset property="boaty.db.pass"/>
+                                   </not>
+                               </condition>
+                           </target>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+           <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>build-helper-maven-plugin</artifactId>
+               <version>1.7</version>
+               <executions>
+                   <execution>
+                       <id>reserve-network-port</id>
+                       <goals>
+                           <goal>reserve-network-port</goal>
+                       </goals>
+                       <phase>initialize</phase>
+                       <configuration>
+                           <portNames>
+                               <portName>test.ps.port</portName>
+                           </portNames>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+           <plugin>
+               <groupId>com.bazaarvoice.maven.plugins</groupId>
+               <artifactId>process-exec-maven-plugin</artifactId>
+               <version>0.8</version>
+               <executions>
+                   <execution>
+                       <id>start-boaty-service</id>
+                       <phase>pre-integration-test</phase>
+                       <goals>
+                           <goal>start</goal>
+                       </goals>
+                       <configuration>
+                           <name>boaty-service</name>
+                           <processLogFile>${project.build.directory}/boaty.log</processLogFile>
+                           <arguments>
+                               <argumnet>java</argumnet>
+                               <!-- <argument>-Xdebug</argument>
+                               <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009</argument> -->
+                               <argument>-jar</argument>
+                               <argument>-Dserver.port=${boaty.test.port}</argument>
+                               <argument>${project.build.directory}/boaty-service-${project.version}.jar</argument>
+                           </arguments>
+                           <waitForInterrupt>${interactiveMode}</waitForInterrupt>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+           <plugin>
+               <groupId>io.fabric8</groupId>
+               <artifactId>docker-maven-plugin</artifactId>
+               <version>0.27.2</version>
+               <configuration>
+                   <images>
+                       <image>
+                           <name>postgres</name>
+                           <run>
+                               <ports>
+                                   <port>${test.ps.port}:5432</port>
+                               </ports>
+                               <env>
+                                   <POSTGRES_USER>${boaty.db.user}</POSTGRES_USER>
+                                   <POSTGRES_PASSWORD>${boaty.db.pass}</POSTGRES_PASSWORD>
+                               </env>
+                           </run>
+                       </image>
+                   </images>
+               </configuration>
+               <executions>
+                   <execution>
+                       <id>start</id>
+                       <phase>pre-integration-test</phase>
+                       <goals>
+                           <goal>start</goal>
+                       </goals>
+                   </execution>
+                   <execution>
+                       <id>stop</id>
+                       <phase>post-integration-test</phase>
+                       <goals>
+                           <goal>stop</goal>
+                       </goals>
+                   </execution>
+               </executions>
+           </plugin>
        </plugins>
     </build>
 

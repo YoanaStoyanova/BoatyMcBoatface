@@ -7,24 +7,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name = "users")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue
     private Long id;
-    @Column(unique = true, nullable = false)
     private String username;
-    @Column(nullable = false)
     private String password;
     private String firstName;
     private String lastName;
     private UserRole role = UserRole.USER;
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -33,6 +35,7 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    @Column(unique = true, nullable = false)
     public String getUsername() {
         return username;
     }
@@ -42,11 +45,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(role);
-    }
-
-    @Override
+    @Column(nullable = false)
     public String getPassword() {
         return password;
     }
@@ -80,21 +79,31 @@ public class User implements UserDetails {
     }
 
     @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(role);
+    }
+
+    @Override
+    @Transient
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @Transient
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @Transient
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @Transient
     public boolean isEnabled() {
         return true;
     }
