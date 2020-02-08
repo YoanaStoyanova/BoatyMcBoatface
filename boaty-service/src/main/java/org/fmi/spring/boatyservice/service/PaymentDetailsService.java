@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface PaymentDetailsService {
 
+    CardPaymentMethod getPaymentDetails(Long paymentMethodId);
+
     CardPaymentMethod registerPaymentMethod(Long userId, CardPaymentMethod paymentSpec);
 
     Page<CardPaymentMethod> listPaymentMethods(Long userId, Pageable pageable);

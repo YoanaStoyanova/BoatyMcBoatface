@@ -2,6 +2,7 @@ package org.fmi.spring.boatyservice.api;
 
 import org.fmi.spring.boatyservice.api.bindings.PagedResponse;
 import org.fmi.spring.boatyservice.api.bindings.RegisterUserSpec;
+import org.fmi.spring.boatyservice.api.bindings.TopUpSpec;
 import org.fmi.spring.boatyservice.api.bindings.UserDetails;
 import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
 import org.fmi.spring.boatyservice.service.UserRegistrationService;
@@ -62,5 +63,10 @@ public class UserOps {
     @DeleteMapping("/{id}")
     void deleteUser(@PathVariable(name = "{id}") long id) {
         userService.delete(id);
+    }
+
+    @PostMapping("/api/users/{id}/top-up")
+    void topUp(@PathVariable(name = "id") Long id, @RequestBody TopUpSpec topUpSpec) {
+        userService.topUpAccount(id, topUpSpec);
     }
 }

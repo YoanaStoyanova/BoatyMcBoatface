@@ -24,6 +24,15 @@ public class CardPaymentDetailsService implements PaymentDetailsService {
     private UserService userService;
 
     @Override
+    public CardPaymentMethod getPaymentDetails(Long paymentMethodId) {
+        return paymentMethodRepository.findById(paymentMethodId)
+            .orElseThrow(() -> {
+                String error = String.format("Card [%d] does not exist", paymentMethodId);
+                return new ApplicationException(error, HttpStatus.NOT_FOUND);
+            });
+    }
+
+    @Override
     public CardPaymentMethod registerPaymentMethod(Long userId, CardPaymentMethod paymentMethod) {
         paymentMethod.setUser(userService.loadById(userId));
         if (!CardUtils.cardNumberIsValid(paymentMethod.getCardNumber())) {

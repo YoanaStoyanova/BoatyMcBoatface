@@ -1,5 +1,6 @@
 package org.fmi.spring.boatyservice.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class User extends UserAuthDetails {
     private Long id;
     private String firstName;
     private String lastName;
+    private Double accountBalance = 0.0;
 
     @Id
     @GeneratedValue
@@ -40,5 +42,14 @@ public class User extends UserAuthDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Column(nullable = false)
+    public Double getAccountBalance() {
+        return this.accountBalance;
+    }
+
+    public void setAccountBalance(Double newBalance) {
+        this.accountBalance = newBalance;
     }
 }
