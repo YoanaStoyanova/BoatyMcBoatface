@@ -1,6 +1,7 @@
 package org.fmi.spring.boatyservice.api;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.fmi.spring.boatyservice.api.bindings.UserDetails;
 import org.fmi.spring.boatyservice.api.bindings.UserRoleSpec;
@@ -13,6 +14,7 @@ import org.fmi.spring.boatyservice.security.token.AuthToken;
 import org.fmi.spring.boatyservice.security.token.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,10 @@ public class IdentityAndAccessOps {
 
     @GetMapping("/api/tokens")
     AuthToken getUserToken() {
-        return tokenProvider.createToken(AuthUtil.currentUser());
+        String currentUser = AuthUtil.currentUser();
+        Collection<? extends GrantedAuthority> authorities =
+            userDetailsService.loadUserByUsername(currentUser).getAuthorities();
+        return tokenProvider.createToken(currentUser, authorities);
     }
 
     @GetMapping("/api/me")

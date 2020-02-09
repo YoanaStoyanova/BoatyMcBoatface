@@ -102,52 +102,6 @@
                </executions>
            </plugin>
            <plugin>
-               <groupId>org.codehaus.mojo</groupId>
-               <artifactId>build-helper-maven-plugin</artifactId>
-               <version>1.7</version>
-               <executions>
-                   <execution>
-                       <id>reserve-network-port</id>
-                       <goals>
-                           <goal>reserve-network-port</goal>
-                       </goals>
-                       <phase>initialize</phase>
-                       <configuration>
-                           <portNames>
-                               <portName>test.ps.port</portName>
-                           </portNames>
-                       </configuration>
-                   </execution>
-               </executions>
-           </plugin>
-           <plugin>
-               <groupId>com.bazaarvoice.maven.plugins</groupId>
-               <artifactId>process-exec-maven-plugin</artifactId>
-               <version>0.8</version>
-               <executions>
-                   <execution>
-                       <id>start-boaty-service</id>
-                       <phase>pre-integration-test</phase>
-                       <goals>
-                           <goal>start</goal>
-                       </goals>
-                       <configuration>
-                           <name>boaty-service</name>
-                           <processLogFile>${project.build.directory}/boaty.log</processLogFile>
-                           <arguments>
-                               <argumnet>java</argumnet>
-                               <!-- <argument>-Xdebug</argument>
-                               <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009</argument> -->
-                               <argument>-jar</argument>
-                               <argument>-Dserver.port=${boaty.test.port}</argument>
-                               <argument>${project.build.directory}/boaty-service-${project.version}.jar</argument>
-                           </arguments>
-                           <waitForInterrupt>${interactiveMode}</waitForInterrupt>
-                       </configuration>
-                   </execution>
-               </executions>
-           </plugin>
-           <plugin>
                <groupId>io.fabric8</groupId>
                <artifactId>docker-maven-plugin</artifactId>
                <version>0.27.2</version>
@@ -181,6 +135,36 @@
                        <goals>
                            <goal>stop</goal>
                        </goals>
+                   </execution>
+               </executions>
+           </plugin>
+           <plugin>
+               <groupId>com.bazaarvoice.maven.plugins</groupId>
+               <artifactId>process-exec-maven-plugin</artifactId>
+               <version>0.8</version>
+               <executions>
+                   <execution>
+                       <id>start-boaty-service</id>
+                       <phase>pre-integration-test</phase>
+                       <goals>
+                           <goal>start</goal>
+                       </goals>
+                       <configuration>
+                           <name>boaty-service</name>
+                           <processLogFile>${project.build.directory}/boaty.log</processLogFile>
+                           <arguments>
+                               <argumnet>java</argumnet>
+                               <!-- <argument>-Xdebug</argument>
+                               <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009</argument> -->
+                               <argument>-jar</argument>
+                               <argument>-Dserver.port=${boaty.test.port}</argument>
+                               <argument>-Ddb.port=${test.ps.port}</argument>
+                               <argument>-Dspring.datasource.username=${boaty.db.user}</argument>
+                               <argument>-Dspring.datasource.password=${boaty.db.pass}</argument>
+                               <argument>${project.build.directory}/boaty-service-${project.version}.jar</argument>
+                           </arguments>
+                           <waitForInterrupt>${interactiveMode}</waitForInterrupt>
+                       </configuration>
                    </execution>
                </executions>
            </plugin>

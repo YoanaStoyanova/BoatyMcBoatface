@@ -1,6 +1,8 @@
 package org.fmi.spring.boatyservice.service.impl;
 
 import java.time.YearMonth;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import org.fmi.spring.boatyservice.exception.ApplicationException;
@@ -8,6 +10,7 @@ import org.fmi.spring.boatyservice.model.CardPaymentMethod;
 import org.fmi.spring.boatyservice.model.User;
 import org.fmi.spring.boatyservice.repository.CardPaymentMethodRepository;
 import org.fmi.spring.boatyservice.repository.UserRepository;
+import org.fmi.spring.boatyservice.service.PaymentService;
 import org.fmi.spring.boatyservice.service.UserService;
 import org.fmi.spring.boatyservice.test.TestUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -19,6 +22,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,6 +57,11 @@ public class CardPaymentDetailsServiceIntegrationTest {
         @Bean
         public PasswordEncoder passwordEncoder() {
             return NoOpPasswordEncoder.getInstance();
+        }
+
+        @Bean
+        public PaymentService paymentService() {
+            return new CardPaymentService();
         }
 
         @Bean
@@ -123,5 +133,24 @@ public class CardPaymentDetailsServiceIntegrationTest {
         YearMonth lastyear = YearMonth.of(YearMonth.now().getYear() - 1, 10);
         paymentMethod.setValidity(lastyear);
         assertThrows(ApplicationException.class, () -> cardPaymentDetailsService.registerPaymentMethod(user.getId(), paymentMethod));
+    }
+
+    @Test
+    void testRegisterMultipleCards() {
+        cardPaymentDetailsService.registerPaymentMethod(user.getId(), paymentMethod);
+
+        paymentMethod.setId(null);
+        paymentMethod.setCardNumber(5510244076285069L);
+        cardPaymentDetailsService.registerPaymentMethod(user.getId(), paymentMethod);
+
+        paymentMethod.setId(null);
+        paymentMethod.setCardNumber(5165984467611062L);
+        cardPaymentDetailsService.registerPaymentMethod(user.getId(), paymentMethod);
+
+        Page<CardPaymentMethod> cards = cardPaymentDetailsService.listPaymentMethods(user.getId(), PageRequest.of(0, 10));
+
+        assertEquals(3, cards.getTotalElements());
+        List<Long> actualNumbers = cards.map(CardPaymentMethod::getCardNumber).getContent();
+        assertTrue(actualNumbers.containsAll(Arrays.asList(5165984467611062L, 5510244076285069L, 4737503036444300L)));
     }
 }

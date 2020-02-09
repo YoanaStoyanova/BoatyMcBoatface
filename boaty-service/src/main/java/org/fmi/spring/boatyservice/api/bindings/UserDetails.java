@@ -7,6 +7,7 @@ public class UserDetails {
     public String username;
     public String firstName;
     public String lastName;
+    public Double balance;
     public String role;
 
     public UserDetails(User user) {
@@ -14,6 +15,7 @@ public class UserDetails {
         this.username = user.getUsername();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
+        this.balance = user.getAccountBalance();
         this.role = user.getRole().name();
     }
 }

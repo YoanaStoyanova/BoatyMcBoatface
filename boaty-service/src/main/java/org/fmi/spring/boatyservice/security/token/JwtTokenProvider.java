@@ -1,10 +1,12 @@
 package org.fmi.spring.boatyservice.security.token;
 
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -26,8 +28,9 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public AuthToken createToken(String userName) {
+    public AuthToken createToken(String userName, Collection<? extends GrantedAuthority> authorities) {
         Claims claims = Jwts.claims().setSubject(userName);
+        claims.put("auth", authorities);
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
         String token = Jwts.builder()
