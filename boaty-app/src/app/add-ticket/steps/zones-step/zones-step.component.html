@@ -1,0 +1,26 @@
+<div id="zones-part" class="content" role="tabpanel" aria-labelledby="zones-part-trigger">
+  <div class="row mb-4">Choose ticket zones</div>
+  <div class="form-group">
+    <div class="row mb-4">
+      <div class="col-lg-2" align="left">Select</div>
+      <div class="pl-4 col-lg-6" align="left">Name</div>
+    </div>
+    <div class="row pb-2 pt-2 border bg-light">
+      <div class="col-lg-2 custom-control custom-checkbox" align="left">
+        <input type="checkbox" [attr.id]="selectAllZones" name="asds" [(ngModel)]="selectAllZones"
+          (change)="toggleAllZones()" />
+      </div>
+      <div class="pl-4 col-lg-6" align="left">Select All zones</div>
+    </div>
+    <div class="row pb-2 pt-2 border bg-light" *ngFor="let zone of zones">
+      <div class="col-lg-2 custom-control custom-checkbox" align="left">
+        <input type="checkbox" [attr.id]="zone.selected" name="{{zone.name}}" [(ngModel)]="zone.selected" />
+      </div>
+      <div class="pl-4 col-lg-6" align="left">{{zone.name}}</div>
+    </div>
+    <div class="btn-group float-right" role="group" aria-label="Basic example">
+      <button (click)="prev.emit()" class="mt-4 btn btn-light">Previous</button>
+      <button (click)="submit()" class="mt-4 btn btn-success">Next</button>
+    </div>
+  </div>
+</div>

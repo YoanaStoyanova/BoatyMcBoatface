@@ -1,21 +1,83 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div [ngClass]="'d-flex ' + toggled" id="wrapper">
 
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Start Bootstrap</div>
+      <div class="list-group"  style="padding: 0px;">
+      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0"  style="padding: 0px;">
+          <ngb-panel title="Tickets" type="light"  style="padding: 0px;">
+            <ng-template ngbPanelContent  style="padding: 0px;">
+              <div  class="list-group" style="padding: 0px;">
+                  <a href="#" class="list-group-item list-group-item-action bg-light">Buy ticket</a>
+                  <a href="#" class="list-group-item list-group-item-action bg-light">Add new ticket definition</a>
+                  <a href="#" class="list-group-item list-group-item-action bg-light">View/Edit tickets</a>
+              </div>
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel title="Tickets" type="light"  style="padding: 0px;">
+              <ng-template ngbPanelContent  style="padding: 0px;">
+                <div  class="list-group" style="padding: 0px;">
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Buy ticket</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Add new ticket definition</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">View/Edit tickets</a>
+                </div>
+              </ng-template>
+            </ngb-panel>
+        
+        </ngb-accordion>
+      </div>
+      <!-- <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+      </div> -->
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <!-- <button class="btn btn-primary" id="menu-toggle" style="background-color: #f8f9fa; border: #f8f9fa;"><i class="fa fa-bars" style="background-color: darkolivegreen;"></i></button> -->
+        <button type="button" id="menu-toggle" class="btn btn-light" (click)="toggleSideMenu()">
+            <span id="menu-toggle-icon" [ngClass]="'fa fa-lg ' + sideMenyIconClass"></span>
+        </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+          <add-ticket></add-ticket>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
 <router-outlet></router-outlet>

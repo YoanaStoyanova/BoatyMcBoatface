@@ -1,0 +1,25 @@
+<div id="lines-part" class="content" role="tabpanel" aria-labelledby="lines-part-trigger">
+  <div class="row mb-4">Lines matching selected zones and transport types</div>
+  <div class="form-group">
+    <div class="row btn-group float-right mb-4" role="group" aria-label="Basic example">
+      <button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)" data-toggle="tooltip"
+        title="Choose lines out of matching zones and transport types">
+        Choose more lines</button>
+    </div>
+    <div class="row mb-4 mt-4"></div>
+    <div class="row mb-4">
+      <div class="col-lg-2" align="left">Select</div>
+      <div class="pl-4 col-lg-6" align="left">Line name</div>
+    </div>
+    <div class="row pb-2 pt-2 border bg-light" *ngFor="let line of filterSelectedLines()">
+      <div class="col-lg-2 custom-control custom-checkbox" align="left">
+        <input type="checkbox" [attr.id]="line.selected" name="{{line.name}}" [(ngModel)]="line.selected" />
+      </div>
+      <div class="pl-4 col-lg-6" align="left">{{line.name}}</div>
+    </div>
+    <div class="btn-group float-right" role="group" aria-label="Basic example">
+      <button (click)="prev.emit()" class="mt-4 btn btn-light">Previous</button>
+      <button (click)="submit()" class="mt-4 btn btn-success">Submit</button>
+    </div>
+  </div>
+</div>
