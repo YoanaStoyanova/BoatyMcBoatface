@@ -10,7 +10,7 @@ export class AppComponent {
 
   title = 'boatyApp';
   showSideMenu = true;
-  sideMenyIconClass = "fa-angle-double-left";
+  sideMenuIconClass = "fa-angle-double-left";
   toggled = '';
   isCollapsed = true;
 
@@ -18,7 +18,7 @@ export class AppComponent {
     console.log("toggling side menu");
     this.showSideMenu = !this.showSideMenu;
     this.toggled = this.toggled == '' ? 'toggled' : '';
-    this.sideMenyIconClass = this.sideMenyIconClass === "fa-angle-double-left" ? "fa-angle-double-right" : "fa-angle-double-left";
+    this.sideMenuIconClass = this.sideMenuIconClass === "fa-angle-double-left" ? "fa-angle-double-right" : "fa-angle-double-left";
   }
   
 }

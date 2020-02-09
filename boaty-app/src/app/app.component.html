@@ -44,7 +44,7 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <!-- <button class="btn btn-primary" id="menu-toggle" style="background-color: #f8f9fa; border: #f8f9fa;"><i class="fa fa-bars" style="background-color: darkolivegreen;"></i></button> -->
         <button type="button" id="menu-toggle" class="btn btn-light" (click)="toggleSideMenu()">
-            <span id="menu-toggle-icon" [ngClass]="'fa fa-lg ' + sideMenyIconClass"></span>
+            <span id="menu-toggle-icon" [ngClass]="'fa fa-lg ' + sideMenuIconClass"></span>
         </button>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -74,10 +74,9 @@
       </nav>
 
       <div class="container-fluid">
-          <add-ticket></add-ticket>
+          <router-outlet></router-outlet>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
 
   </div>
-<router-outlet></router-outlet>
