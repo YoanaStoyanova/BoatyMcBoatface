@@ -17,6 +17,10 @@ export class AuthenticationService {
         this.token = this.tokenSubject.asObservable();
     }
 
+    public isAuthenticated(): boolean {
+        return this.tokenSubject.value != null;
+    }
+
     public get tokenValue(): TokenModel {
         return this.tokenSubject.value;
     }

@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
       private formBuilder :FormBuilder,
       private authenticationService :AuthenticationService
   ) {
-    if (this.authenticationService.tokenValue) {
+    if (this.authenticationService.isAuthenticated()) {
       this.router.navigate(['/']);
     }
   }
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required, Validators.email],
+      username: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
               this.router.navigate([this.returnUrl]);
             },
             error => {
-              console.log(error);
             });
   }
 

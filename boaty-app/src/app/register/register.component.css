@@ -1,0 +1,33 @@
+.signup-container{
+    margin-bottom: 5%;
+}
+.signup-form{
+    padding: 5%;
+}
+.signup-form h3{
+    text-align: center;
+    color: #333;
+}
+
+.signup-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.signup-form .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+.signup-form .GotAccount{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}

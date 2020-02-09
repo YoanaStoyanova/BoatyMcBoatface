@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {AuthorizationService} from "./services/authorization.service";
+import { RegisterComponent } from './register/register.component';
 
 export function tokenGetter() {
 
@@ -23,7 +24,7 @@ export function tokenGetter() {
   if (token != null) {
     return token;
   }
-  return "{}";
+  return null;
 }
 
 @NgModule({
@@ -35,7 +36,8 @@ export function tokenGetter() {
     LinesStepComponent,
     TransportTypeStepComponent,
     AdditionalLinesStepComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
