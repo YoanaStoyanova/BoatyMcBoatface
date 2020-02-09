@@ -1,9 +1,6 @@
 import { AdditionalLineSelectionService } from './../../../services/additional-line-selection.service';
-import { StationsSelectionService } from './../../../services/stations-selection.service';
-import { LineService } from './../../../services/line.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LineModel } from 'src/app/model/line-model';
-import { StationModel } from 'src/app/model/station-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -22,8 +19,7 @@ export class AdditionalLinesStepComponent implements OnInit {
   next = new EventEmitter();
   prev = new EventEmitter();
 
-  constructor(private lineService: LineService,
-    private additionalLineSelectionService: AdditionalLineSelectionService,
+  constructor(private additionalLineSelectionService: AdditionalLineSelectionService,
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {

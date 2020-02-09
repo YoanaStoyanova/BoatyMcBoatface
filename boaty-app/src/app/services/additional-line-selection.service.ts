@@ -13,13 +13,10 @@ export class AdditionalLineSelectionService {
   constructor() { }
 
   public setSelectedLines(lines: Set<LineModel>) {
-    console.log("Setting selected stations");
-    lines.forEach(station => console.log(station.name));
     this.selectedAdditionalLines.next(lines);
   }
 
   public addSelectedLines(lines: Set<LineModel>) {
-    console.log("Adding stations");
     lines.forEach(station => this.selectedAdditionalLines.getValue().add(station));
     this.selectedAdditionalLines.getValue().forEach(station => console.log(station.name));
     this.selectedAdditionalLines.next(this.selectedAdditionalLines.getValue());

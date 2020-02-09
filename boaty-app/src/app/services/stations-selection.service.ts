@@ -13,13 +13,10 @@ export class StationsSelectionService {
   constructor() { }
 
   public setSelectedStations(stations: Set<StationModel>) {
-    console.log("Setting selected stations");
-    stations.forEach(station => console.log(station.name));
     this.selectedStations.next(stations);
   }
 
   public addSelectedStations(stations: Set<StationModel>) {
-    console.log("Adding stations");
     stations.forEach(station => this.selectedStations.getValue().add(station));
     this.selectedStations.getValue().forEach(station => console.log(station.name));
     this.selectedStations.next(this.selectedStations.getValue());

@@ -13,14 +13,10 @@ export class TransportTypeSelectionService {
   constructor() { }
 
   public setSelectedTransportTypes(transportTypes: Array<TransportTypeModel>) {
-    console.log("Setting selected transport types");
-    transportTypes.map(tType => console.log(tType.name));
     this.selectedTransportTypes.next(transportTypes);
   }
 
   public addSelectedTransportTypes(transportTypes: Array<TransportTypeModel>) {
-    console.log("Adding selected transport types");
-    transportTypes.map(tType => console.log(tType.name));
     this.selectedTransportTypes.next(this.selectedTransportTypes.getValue().concat(transportTypes));
   }
 }

@@ -1,3 +1,4 @@
+import { tick } from '@angular/core/src/render3';
 import { TicketModel } from './../../../model/ticket-model';
 import { ZoneSelectionService } from './../../../services/zone-selection.service';
 import { AdditionalLinesStepComponent } from './../additional-lines-step/additional-lines-step.component';
@@ -6,7 +7,7 @@ import { LineService } from './../../../services/line.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LineModel } from 'src/app/model/line-model';
 import { TransportTypeModel } from 'src/app/model/transport-type-model';
-import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ZoneModel } from 'src/app/model/zone-model';
 import { LineSelectionService } from 'src/app/services/line-selection.service';
 
@@ -17,11 +18,9 @@ import { LineSelectionService } from 'src/app/services/line-selection.service';
 })
 export class LinesStepComponent implements OnInit {
 
-  //lines: Array<LineModel>;
   allLines: Array<LineModel>;
   selectedTransportTypes: Array<TransportTypeModel>;
   selectedZones: Set<ZoneModel>;
-  closeResult: string;
   modalOptions: NgbModalOptions;
 
   @Output()
@@ -49,7 +48,6 @@ export class LinesStepComponent implements OnInit {
       .subscribe(selectedTransportTypes => this.selectedTransportTypes = selectedTransportTypes);
     this.zoneSelectionService.currentZones
       .subscribe(selectedZones => this.selectedZones = selectedZones);
-  //  this.allLines = this.getLines();
     this.allLines = this.lineService.getLines();
   }
 
@@ -63,16 +61,13 @@ export class LinesStepComponent implements OnInit {
       return (this.matchesSelectedTransportType(line)
         && this.matchesSelectedStation(line));
     }).map(line => {
-      console.log("Found matching lines");
       line.selected = true; return line;
     });
   }
 
   matchesSelectedTransportType(line: LineModel) {
     for (let selectedTransportType of this.selectedTransportTypes) {
-      console.log("Selected tr type " + selectedTransportType.id);
       if (line.transportType === selectedTransportType.id) {
-        console.log("found matching line " + line.transportType);
         return true;
       }
     }
@@ -107,11 +102,5 @@ export class LinesStepComponent implements OnInit {
     let additionaLines = new Array<LineModel>();
     this.lineService.getLines().map(line => additionaLines.push(new LineModel(line.id, line.name, line.stations, false, line.transportType)));
     ref.componentInstance.lines = additionaLines;
-    // this.modalService.open(AdditionalLinesStepComponent, this.modalOptions).result.then((result) => {
-    //   this.closeResult = `Closed with: ${result}`;
-    // }, (reason) => {
-    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    // });
   }
-
 }

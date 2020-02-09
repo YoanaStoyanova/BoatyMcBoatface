@@ -1,5 +1,4 @@
 import { ZoneSelectionService } from './../../../services/zone-selection.service';
-import { StationsSelectionService } from './../../../services/stations-selection.service';
 import { ZoneModel } from './../../../model/zone-model';
 import { ZoneService } from './../../../services/zone.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
@@ -36,19 +35,11 @@ export class ZonesStepComponent implements OnInit {
   }
 
   submit() {
-    let selectedZones = this.zones
-      .filter(zone => zone.selected);
-    console.log("Selected zones");
-    selectedZones.map(zone => console.log(zone.name));
+    let selectedZones = this.zones.filter(zone => zone.selected);
     let selectedStations = new Array<StationModel>();
     selectedZones.map(zone => {
       selectedStations = selectedStations.concat(zone.stations);
-    }
-    );
-    console.log("selected stations from zone ");
-    selectedStations.forEach(station => console.log(station.name));
-    console.log("Selected stations from zones");
-    selectedStations.forEach(station => console.log(station.name));
+    });
     this.zoneSelectionService.setSelectedZones(new Set(selectedZones));
     this.next.emit();
   }

@@ -1,5 +1,4 @@
 import { ZoneModel } from 'src/app/model/zone-model';
-import { StationModel } from './station-model';
 import { LineModel } from './line-model';
 
 export class TicketModel {
