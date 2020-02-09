@@ -1,0 +1,84 @@
+<div class="modal-dialog modal-lg" style="width: 750px; margin: auto;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Choose additional lines not in matching zones and transport types</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group">
+          <div class="row mb-4">
+            <div class="col-lg-2" align="left">Select</div>
+            <div class="pl-4 col-lg-6" align="left">Line name</div>
+          </div>
+          <div class="row pb-2 pt-2 border bg-light">
+            <div class="col-lg-2 custom-control custom-checkbox" align="left">
+              <input type="checkbox" [attr.id]="selectAllLines" name="asds" [(ngModel)]="selectAllLines"
+                (change)="toggleAllLines()" />
+            </div>
+            <div class="pl-4 col-lg-6" align="left">Select All lines</div>
+          </div>
+          <div class="row pb-2 pt-2 border bg-light" *ngFor="let line of lines">
+            <div class="col-lg-2 custom-control custom-checkbox" align="left">
+              <input type="checkbox" [attr.id]="line.selected" name="{{line.name}}" [(ngModel)]="line.selected" />
+            </div>
+            <div class="pl-4 col-lg-6" align="left">{{line.name}}</div>
+          </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+      <div class="btn-group float-right" role="group" aria-label="Basic example">
+        <button (click)="cancel()" class="mt-4 btn btn-light">Cancel</button>
+        <button (click)="submit()" class="mt-4 btn btn-success">Ok</button>
+      </div>
+      <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button> --> -->
+     </div>
+
+  </div>
+</div> 
+
+<!-- <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Choose additional lines out of matching zones and transport types</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <div id="lines-part" class="content" role="tabpanel" aria-labelledby="lines-part-trigger">
+          <div class="form-group">
+            <div class="row mb-4">
+              <div class="col-lg-2" align="left">Select</div>
+              <div class="pl-4 col-lg-6" align="left">Line name</div>
+            </div>
+            <div class="row pb-2 pt-2 border bg-light">
+              <div class="col-lg-2 custom-control custom-checkbox" align="left">
+                <input type="checkbox" [attr.id]="selectAllLines" name="asds" [(ngModel)]="selectAllLines"
+                  (change)="toggleAllLines()" />
+              </div>
+              <div class="pl-4 col-lg-6" align="left">Select All lines</div>
+            </div>
+            <div class="row pb-2 pt-2 border bg-light" *ngFor="let line of lines">
+              <div class="col-lg-2 custom-control custom-checkbox" align="left">
+                <input type="checkbox" [attr.id]="line.selected" name="{{line.name}}" [(ngModel)]="line.selected" />
+              </div>
+              <div class="pl-4 col-lg-6" align="left">{{line.name}}</div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="btn-group float-right" role="group" aria-label="Basic example">
+          <button (click)="cancel()" class="mt-4 btn btn-light">Cancel</button>
+          <button (click)="submit()" class="mt-4 btn btn-success">Ok</button>
+        </div>
+         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button> -->
+      <!-- </div>
+    </div>
+  </div>
+</div> --> 

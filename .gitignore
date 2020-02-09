@@ -31,3 +31,5 @@ boaty-service/target
 
 # UI stuff
 **/node_modules/**
+boaty-app/dist/**
+boaty-app/out/**

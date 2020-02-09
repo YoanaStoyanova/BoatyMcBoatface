@@ -1,0 +1,65 @@
+<div class="row mt-5">
+    <div class="col-lg-3"></div>
+    <div class="bs-stepper col-lg-6">
+        <div class="bs-stepper-header" role="tablist">
+            <div class="step" data-target="#details-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="details-part"
+                    id="details-part-trigger">
+                    <span class="bs-stepper-circle">1</span>
+                    <span class="bs-stepper-label">Details</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#zones-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="zones-part"
+                    id="zones-part-trigger">
+                    <span class="bs-stepper-circle">2</span>
+                    <span class="bs-stepper-label">Zones</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#transport-types-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="transport-types-part"
+                    id="transport-types-part-trigger">
+                    <span class="bs-stepper-circle">3</span>
+                    <span class="bs-stepper-label">Transport types</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#lines-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="lines-part"
+                    id="lines-part-trigger">
+                    <span class="bs-stepper-circle">4</span>
+                    <span class="bs-stepper-label">Lines</span>
+                </button>
+            </div>
+        </div>
+        <div class="bs-stepper-content">
+            <form class="mt-5">
+                <div id="details-part" class="content" role="tabpanel" aria-labelledby="details-part-trigger">
+                    <div class="row mb-4">Choose ticket details</div>
+                    <div class="form-group mb-4">
+                        <label for="nameInput">Name</label>
+                        <input type="text" class="form-control" id="nameInput" name="ticketName"
+                            [(ngModel)]="ticket.name" placeholder="60 minute all line ticket">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="nameInput">Time validity in minutes</label>
+                        <input type="text" class="form-control" id="ticketMinutesValidfor" name="ticketMinutesValidfor"
+                            [(ngModel)]="ticket.minutesValidFor" placeholder="60">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="nameInput">Price in currency</label>
+                        <input type="text" class="form-control" id="ticketPrice" name="ticketPrice"
+                            [(ngModel)]="ticket.price" placeholder="2.50">
+                    </div>
+                    <button (click)="next()" class="mt-4 btn btn-success float-right">Next</button>
+                </div>
+                <zones-step (next)="next()" (prev)="prev()"></zones-step>
+                <transport-type-step  (next)="next()" (prev)="prev()"></transport-type-step>
+                <lines-step [ticket]='ticket' (next)="onSubmit()" (prev)="prev()"></lines-step>
+                <!-- <div id="lines-part" class="content" role="tabpanel" aria-labelledby="lines-part-trigger"></div> -->
+            </form>
+        </div>
+    </div>
+</div>
