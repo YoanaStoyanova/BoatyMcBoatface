@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface TicketService {
 
-   public List<Ticket> getAllTickets();
+   List<Ticket> getAllTickets();
 
-   public Ticket addTicket(Ticket t);
+   Ticket addTicket(Ticket t);
+
+   Ticket updateTicket(Ticket t);
 }

@@ -9,4 +9,8 @@ public interface StationService {
    List<Station> getAllStations();
 
    Station addStation(Station s);
+
+   Station updateStation(Station s);
+
+   Station deleteStation(Long id);
 }

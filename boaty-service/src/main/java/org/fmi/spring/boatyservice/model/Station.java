@@ -3,6 +3,8 @@ package org.fmi.spring.boatyservice.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import java.util.Set;
 @Entity(name = "station")
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class Station {
@@ -25,6 +28,7 @@ public class Station {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
+   @NonNull
    private String name;
 
    @ManyToMany(mappedBy = "stations")

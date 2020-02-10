@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ZoneService {
 
   zones = [
-    {"id": 1, "name" : "Zone 1", "stations": [new StationModel(1, "station 1", null)], "selected": false},
+    {"id": 1, "name" : "Zone 1", "stations": [new StationModel(1, "station 1", null, null)], "selected": false},
     {"id": 2, "name" : "Zone 2", "stations": new Array<StationModel>(), "selected": false},
     {"id": 3, "name" : "Zone 3", "stations": new Array<StationModel>(), "selected": false},
     {"id": 4, "name" : "Zone 4", "stations": new Array<StationModel>(), "selected": false},

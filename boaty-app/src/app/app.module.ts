@@ -17,6 +17,8 @@ import { HttpClientModule } from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {AuthorizationService} from "./services/authorization.service";
 import { RegisterComponent } from './register/register.component';
+import { AddStationComponent } from './add-station/add-station/add-station.component';
+import { ViewStationsComponent } from './view-stations/view-stations/view-stations.component';
 
 export function tokenGetter() {
 
@@ -37,7 +39,9 @@ export function tokenGetter() {
     TransportTypeStepComponent,
     AdditionalLinesStepComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddStationComponent,
+    ViewStationsComponent
   ],
   imports: [
     BrowserModule,
