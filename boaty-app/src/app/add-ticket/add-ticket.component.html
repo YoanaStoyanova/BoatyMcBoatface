@@ -56,9 +56,8 @@
                     <button (click)="next()" class="mt-4 btn btn-success float-right">Next</button>
                 </div>
                 <zones-step (next)="next()" (prev)="prev()"></zones-step>
-                <transport-type-step  (next)="next()" (prev)="prev()"></transport-type-step>
-                <lines-step [ticket]='ticket' (next)="onSubmit()" (prev)="prev()"></lines-step>
-                <!-- <div id="lines-part" class="content" role="tabpanel" aria-labelledby="lines-part-trigger"></div> -->
+                <transport-type-step  (next)="next()" (prev)="prev()" (filterLines)="filterLines()"></transport-type-step>
+                <lines-step [shouldFilterLines]="shouldFilterLines" (next)="onSubmit()" (prev)="prev()"></lines-step>
             </form>
         </div>
     </div>

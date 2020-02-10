@@ -16,6 +16,7 @@ export class AddTicketComponent implements OnInit {
   @Input()
   ticket: TicketModel = {} as TicketModel;
   stepper: Stepper;
+  shouldFilterLines: boolean;
 
   constructor(private ticketSvc: TicketService,
     private zoneSelectionSvc: ZoneSelectionService,
@@ -25,6 +26,7 @@ export class AddTicketComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.shouldFilterLines = false;
     this.stepper = new Stepper(document.querySelector('.bs-stepper'), {
       linear: false,
       animation: true
@@ -38,11 +40,16 @@ export class AddTicketComponent implements OnInit {
   }
 
   prev() {
+    this.shouldFilterLines = false;
     this.stepper.previous();
   }
 
   next() {
     this.stepper.next();
+  }
+
+  filterLines(){
+    this.shouldFilterLines = true;
   }
 
   onSubmit() {
