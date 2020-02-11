@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {UserModel} from "../model/user-model";
 import {SignupModel} from "../model/signup-model";
+import {TopUpModel} from "../model/top.up-model";
 
 
 @Injectable({ providedIn: 'root' })
@@ -11,6 +12,10 @@ export class UserService {
 
     public createUser(user :SignupModel) {
         return this.http.post<UserModel>(`${environment.baseUrl}/users`, user);
+    }
+
+    public topUpAccount(userId :number, topUpRequest :TopUpModel) {
+        return this.http.post<TopUpModel>(`${environment.baseUrl}/users/${userId}/top-up`, topUpRequest);
     }
 
     public getCurrent() {
