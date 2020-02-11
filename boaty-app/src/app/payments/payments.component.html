@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+           <div class="d-flex justify-content-center">
+                <table *ngIf="cardPage != null && cardPage.totalElements > 0 else noCards" class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Number</th>
+                        <th scope="col">Holder</th>
+                        <th scope="col">Validity</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let card of cardPage.content">
+                        <td>{{card.cardNumber}}</td>
+                        <td>{{card.cardHolder}}</td>
+                        <td>{{card.validity}}</td>
+                        <td><button class="btn btn-danger btn-sm" (click)="deleteCard(card.id)">Remove</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ng-template #noCards>
+                    <p class="h3">No cards to show, <a href="/payments/new">add</a></p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

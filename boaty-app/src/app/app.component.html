@@ -68,11 +68,9 @@
 
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li *ngIf="authService.isAuthenticated()" class="nav-item">
-                    <div *ngIf="currentUser != null">
-                        <span class="navbar-text">
-                            Hello, {{currentUser.username}} | Account balance: {{currentUser.balance}}
-                        </span>
-                    </div>
+                    <span class="navbar-text">
+                        Hello, {{(currentUser | async).username}}  Account balance: {{(currentUser | async).balance}}
+                    </span>
                 </li>
                 <li *ngIf="authService.isAuthenticated()" class="nav-item">
                     <a (click)="authService.logout()" class="nav-link" href="/logout">Logout</a>

@@ -12,7 +12,7 @@ import {Observable} from "rxjs";
 
 export class AppComponent implements OnInit {
 
-  currentUser :UserModel;
+  currentUser :Observable<UserModel>;
   title = 'boatyApp';
   showSideMenu = true;
   sideMenuIconClass = "fa-angle-double-left";
@@ -30,7 +30,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.userService.getCurrent().subscribe(user => this.currentUser = user);
+      this.currentUser = this.userService.getCurrent();
+          //.subscribe(user => this.currentUser = user);
     }
   }
 }
