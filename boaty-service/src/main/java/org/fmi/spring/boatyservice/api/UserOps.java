@@ -65,7 +65,7 @@ public class UserOps {
         userService.delete(id);
     }
 
-    @PostMapping("/api/users/{id}/top-up")
+    @PostMapping("/{id}/top-up")
     void topUp(@PathVariable(name = "id") Long id, @RequestBody TopUpSpec topUpSpec) {
         userService.topUpAccount(id, topUpSpec);
     }

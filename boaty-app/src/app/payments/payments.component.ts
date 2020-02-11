@@ -14,7 +14,7 @@ import {Subject} from "rxjs";
 })
 export class PaymentsComponent implements OnInit, OnDestroy {
 
-    public destroyed = new Subject<any>();
+    private destroyed = new Subject<any>();
     cardPage: PagedResponseModel<CardPaymentMethodModel>;
 
   constructor(private router :Router,

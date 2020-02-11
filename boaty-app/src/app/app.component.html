@@ -76,13 +76,16 @@
             </ul>
 
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li *ngIf="authService.isAuthenticated()" class="nav-item">
+                <li *ngIf="authService.isAuthenticated()"  class="nav-item">
                     <span class="navbar-text">
-                        Hello, {{(currentUser | async).username}}  Account balance: {{(currentUser | async).balance}}
+                        Hello, {{(currentUser | async)?.username}}
                     </span>
                 </li>
+                <li *ngIf="authService.isAuthenticated() && (cardPage | async)?.totalElements > 0" class="nav-item">
+                    <button (click)="modalService.open(topUpModal)" data-target="#topUpModal" class="btn btn-outline-primary ml-2">Account balance: {{(currentUser | async)?.balance}}</button>
+                </li>
                 <li *ngIf="authService.isAuthenticated()" class="nav-item">
-                    <a (click)="authService.logout()" class="nav-link" href="/logout">Logout</a>
+                    <button (click)="authService.logout()" class="btn btn-outline-danger ml-2">Logout</button>
                 </li>
                 <li *ngIf="!authService.isAuthenticated()" class="nav-item">
                     <a  class="nav-link" href="/login">Login</a>
@@ -93,6 +96,25 @@
             </ul>
         </nav>
 
+        <ng-template #topUpModal let-modal>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Top-up Account</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="topUpForm" (ngSubmit)="onTopUp(); modal.dismiss()" class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" formControlName="amount" type="number" placeholder="Amount" aria-label="amount">
+                        <select class="form-control mr-sm-2" formControlName="card">
+                            <option *ngFor="let card of (cardPage | async)?.content" value="{{card.id}}">{{card.cardNumber}}</option>
+                        </select>
+                        <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2">Top-Up</button>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
         <div class="container-fluid">
             <router-outlet></router-outlet>
         </div>
