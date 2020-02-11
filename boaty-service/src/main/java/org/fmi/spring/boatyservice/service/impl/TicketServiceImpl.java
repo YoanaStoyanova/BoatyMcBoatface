@@ -36,4 +36,11 @@ public class TicketServiceImpl implements TicketService {
       Ticket ticket = loadById(t.getId());
       return repository.save(t);
    }
+
+   @Override
+   public Ticket deleteTicket(Long id) {
+      Ticket oldTicket = loadById(id);
+      repository.deleteById(id);
+      return oldTicket;
+   }
 }

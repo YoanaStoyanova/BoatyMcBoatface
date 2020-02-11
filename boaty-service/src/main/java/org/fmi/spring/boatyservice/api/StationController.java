@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.fmi.spring.boatyservice.api.bindings.StationDetails.getStationDetails;
+
 @RestController
 @RequestMapping("/api/stations")
 public class StationController {
@@ -48,14 +50,6 @@ public class StationController {
       return getStationDetails(stationService.deleteStation(stationId));
    }
 
-   StationDetails getStationDetails(Station station) {
-      String zoneName = "";
-      Long zoneId = null;
-      if (station.getZone() != null) {
-         zoneName = station.getZone().getName();
-         zoneId = station.getZone().getId();
-      }
-      return new StationDetails(station.getId(), station.getName(), zoneId, zoneName);
-   }
+
 
 }

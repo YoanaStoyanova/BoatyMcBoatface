@@ -1,8 +1,8 @@
 import { map } from 'rxjs/operators';
-import { ZoneSelectionService } from './../../../services/zone-selection.service';
+import { ZoneSelectionService } from 'src/app/services/zone-selection.service';
 import { AdditionalLinesStepComponent } from './../additional-lines-step/additional-lines-step.component';
-import { TransportTypeSelectionService } from './../../../services/transport-type-selection.service';
-import { LineService } from './../../../services/line.service';
+import { TransportTypeSelectionService } from 'src/app/services/transport-type-selection.service';
+import { LineService } from 'src/app/services/line.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LineModel } from 'src/app/model/line-model';
 import { TransportTypeModel } from 'src/app/model/transport-type-model';
@@ -111,9 +111,14 @@ export class LinesStepComponent implements OnInit {
   }
 
   open() {
-    let ref = this.modalService.open(AdditionalLinesStepComponent);
     let additionaLines = new Array<LineModel>();
-    this.lineService.getLines().pipe(map(lines => lines.map(line => additionaLines.push(new LineModel(line.id, line.name, line.stations, false, line.transportType)))));
-    ref.componentInstance.lines = additionaLines;
+    this.lineService.getLines().subscribe(lines => {
+      lines.forEach(line => console.log(line.name));
+    });
+    this.lineService.getLines().subscribe(lines => {
+      lines.map(line => additionaLines.push(new LineModel(line.id, line.name, line.stations, false, line.transportType)));
+      let ref = this.modalService.open(AdditionalLinesStepComponent);
+      ref.componentInstance.lines = additionaLines;
+    })
   }
 }

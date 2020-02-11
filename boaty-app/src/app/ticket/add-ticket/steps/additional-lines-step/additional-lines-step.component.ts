@@ -1,4 +1,4 @@
-import { AdditionalLineSelectionService } from './../../../services/additional-line-selection.service';
+import { AdditionalLineSelectionService } from 'src/app/services/additional-line-selection.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { LineModel } from 'src/app/model/line-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';

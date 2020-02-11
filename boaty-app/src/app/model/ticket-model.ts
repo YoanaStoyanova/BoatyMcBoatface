@@ -7,7 +7,7 @@ export class TicketModel {
         public minutesValidFor: number,
         public price: number,
         public name: string,
-        public zones: Set<ZoneModel>,
-        public lines: Set<LineModel>,
-        public additionalLines: Set<LineModel>) { }
+        public zones: Array<ZoneModel>,
+        public lines: Array<LineModel>,
+        public additionalLines: Array<LineModel>) { }
 }

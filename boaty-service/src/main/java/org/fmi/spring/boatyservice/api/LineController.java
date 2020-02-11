@@ -1,11 +1,8 @@
 package org.fmi.spring.boatyservice.api;
 
 import org.fmi.spring.boatyservice.api.bindings.LineDetails;
-import org.fmi.spring.boatyservice.api.bindings.StationDetails;
 import org.fmi.spring.boatyservice.exception.ApplicationException;
 import org.fmi.spring.boatyservice.model.Line;
-import org.fmi.spring.boatyservice.model.Station;
-import org.fmi.spring.boatyservice.model.Zone;
 import org.fmi.spring.boatyservice.service.LineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.fmi.spring.boatyservice.api.bindings.LineDetails.getLineDetails;
 
 @RestController
 @RequestMapping("/api/lines")
@@ -31,7 +28,7 @@ public class LineController {
 
    @GetMapping
    public List<LineDetails> getAllLines() {
-      return lineService.getAllLines().stream().map(this::getLineDetails).collect(Collectors.toList());
+      return lineService.getAllLines().stream().map(LineDetails::getLineDetails).collect(Collectors.toList());
    }
 
    @PostMapping
@@ -53,25 +50,4 @@ public class LineController {
       return getLineDetails(lineService.deleteLine(lineId));
    }
 
-   private LineDetails getLineDetails(Line line) {
-      LineDetails lineDetails = new LineDetails();
-      lineDetails.setId(line.getId());
-      lineDetails.setName(line.getName());
-      lineDetails.setTransportType(line.getTransportType());
-      Set<Station> stations = line.getStations();
-      Set<StationDetails> stationDetailsSet = new HashSet<>();
-      stations.forEach(station -> {
-         Zone zone = station.getZone();
-         StationDetails stationDetails = new StationDetails();
-         stationDetails.setId(station.getId());
-         stationDetails.setName(station.getName());
-         if (zone != null) {
-            stationDetails.setZoneId(zone.getId());
-            stationDetails.setZoneName(zone.getName());
-         }
-         stationDetailsSet.add(stationDetails);
-      });
-      lineDetails.setStations(stationDetailsSet);
-      return lineDetails;
-   }
 }

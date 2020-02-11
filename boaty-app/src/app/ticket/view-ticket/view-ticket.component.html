@@ -1,0 +1,52 @@
+<div class="row mt-5">
+  <div class="col-lg-2"></div>
+  <!-- <form class="mt-5">
+    <div id="zones-part" class="content" role="tabpanel" aria-labelledby="zones-part-trigger">
+      <div class="row mb-4">Tickets details</div>
+      <div class="form-group">
+        <div class="row mb-4">
+          <div class="pl-4 col-lg-4" align="left">Name</div>
+          <div class="pl-4 col-lg-3" align="left">Time validity</div>
+          <div class="pl-4 col-lg-3" align="left">Price</div>
+        </div>
+        <div class="row pb-2 pt-2 border bg-light" *ngFor="let ticket of tickets">
+          <div class="pl-4 col-lg-4" align="left">{{ticket.name}}</div>
+          <div class="pl-4 col-lg-3" align="left">{{ticket.minutesValidFor}} mins</div>
+          <div class="pl-4 col-lg-3" align="left">{{ticket.price}} $</div>
+          <div class="btn-group mr-2 float-right" role="group">
+            <button type="button" class="btn btn-success">Buy</button>
+            <button type="button" class="btn btn-danger" (click)="delete(ticket)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> -->
+  <form class="mt-5 col-lg-6">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Time validity</th>
+          <th scope="col">Price</th>
+          <th scope="col"> </th>
+        </tr>
+      </thead>
+      <tbody  *ngIf="tickets">
+        <tr *ngFor="let ticket of tickets; index as i" class="mt-4 mb-4">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{ticket.name}}</td>
+          <td>{{ticket.minutesValidFor}} mins</td>
+          <td>{{ticket.price}} </td>
+          <td>
+            <div class="btn-group mr-2 float-right" role="group">
+              <button type="button" class="btn btn-success">Buy</button>
+              <button type="button" class="btn btn-danger" (click)="delete(ticket)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+</div>

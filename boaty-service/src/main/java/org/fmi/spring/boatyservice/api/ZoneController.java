@@ -1,6 +1,5 @@
 package org.fmi.spring.boatyservice.api;
 
-import org.fmi.spring.boatyservice.api.bindings.StationDetails;
 import org.fmi.spring.boatyservice.api.bindings.ZoneDetails;
 import org.fmi.spring.boatyservice.model.Station;
 import org.fmi.spring.boatyservice.model.Zone;
@@ -15,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.fmi.spring.boatyservice.api.bindings.ZoneDetails.getZoneDetails;
 
 @RestController
 @RequestMapping("/api/zones")
@@ -55,18 +55,4 @@ public class ZoneController {
       return getZoneDetails(zoneService.deleteZone(id));
    }
 
-   ZoneDetails getZoneDetails(Zone zone) {
-      Set<Station> stations = zone.getStations();
-      ZoneDetails zoneDetails = new ZoneDetails();
-      zoneDetails.setId(zone.getId());
-      zoneDetails.setName(zone.getName());
-      if (stations != null) {
-         Set<StationDetails> stationDetails = new HashSet<>();
-         for (Station station : stations) {
-            stationDetails.add(new StationDetails(station.getId(), station.getName(), zone.getId(), zone.getName()));
-         }
-         zoneDetails.setStations(stationDetails);
-      }
-      return zoneDetails;
-   }
 }

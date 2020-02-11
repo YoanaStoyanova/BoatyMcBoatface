@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,24 +32,22 @@ public class Ticket {
 
    private String name;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "ticket_zone_validity",
          joinColumns = @JoinColumn(name = "ticket_id"),
          inverseJoinColumns = @JoinColumn(name = "zone_id"))
    private Set<Zone> zones;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "ticket_line_validity",
          joinColumns = @JoinColumn(name = "ticket_id"),
          inverseJoinColumns = @JoinColumn(name = "line_id"))
    private Set<Line> lines;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "ticket_additional_line_validity",
          joinColumns = @JoinColumn(name = "ticket_id"),
          inverseJoinColumns = @JoinColumn(name = "line_id"))
    private Set<Line> additionalLines;
-
-
 
 }

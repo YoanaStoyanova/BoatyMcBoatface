@@ -1,5 +1,5 @@
-import { TransportTypeSelectionService } from './../../../services/transport-type-selection.service';
-import { TransportTypeService } from './../../../services/transport-type.service';
+import { TransportTypeSelectionService } from 'src/app/services/transport-type-selection.service';
+import { TransportTypeService } from 'src/app/services/transport-type.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TransportTypeModel } from 'src/app/model/transport-type-model';
 

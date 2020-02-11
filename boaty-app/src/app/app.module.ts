@@ -5,13 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddTicketComponent } from './add-ticket/add-ticket.component';
+import { AddTicketComponent } from './ticket/add-ticket/add-ticket.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NameStepComponent } from './add-ticket/steps/name-step/name-step.component';
-import { ZonesStepComponent } from './add-ticket/steps/zones-step/zones-step.component';
-import { LinesStepComponent } from './add-ticket/steps/lines-step/lines-step.component';
-import { TransportTypeStepComponent } from './add-ticket/steps/transport-type-step/transport-type-step.component';
-import { AdditionalLinesStepComponent } from './add-ticket/steps/additional-lines-step/additional-lines-step.component';
+import { NameStepComponent } from './ticket/add-ticket/steps/name-step/name-step.component';
+import { ZonesStepComponent } from './ticket/add-ticket/steps/zones-step/zones-step.component';
+import { LinesStepComponent } from './ticket/add-ticket/steps/lines-step/lines-step.component';
+import { TransportTypeStepComponent } from './ticket/add-ticket/steps/transport-type-step/transport-type-step.component';
+import { AdditionalLinesStepComponent } from './ticket/add-ticket/steps/additional-lines-step/additional-lines-step.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
@@ -25,6 +25,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
 import { ViewLinesComponent } from './lines/view-lines/view-lines.component';
+import { ViewTicketComponent } from './ticket/view-ticket/view-ticket.component';
 
 export function tokenGetter() {
 
@@ -54,7 +55,8 @@ export function tokenGetter() {
     PaymentsComponent,
     AddPaymentComponent,
     AddLineComponent,
-    ViewLinesComponent
+    ViewLinesComponent,
+    ViewTicketComponent
   ],
   imports: [
     BrowserModule,

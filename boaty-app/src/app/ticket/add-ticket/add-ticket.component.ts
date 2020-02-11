@@ -1,10 +1,11 @@
-import { AdditionalLineSelectionService } from './../services/additional-line-selection.service';
-import { ZoneSelectionService } from './../services/zone-selection.service';
-import { TicketService } from './../services/ticket.service';
-import { TicketModel } from './../model/ticket-model';
+import { Router } from '@angular/router';
+import { AdditionalLineSelectionService } from 'src/app/services/additional-line-selection.service';
+import { ZoneSelectionService } from 'src/app/services/zone-selection.service';
+import { TicketService } from 'src/app/services/ticket.service';
+import { TicketModel } from 'src/app/model/ticket-model';
 import { Component, OnInit, Input } from '@angular/core';
 import Stepper from 'bs-stepper';
-import { LineSelectionService } from '../services/line-selection.service';
+import { LineSelectionService } from 'src/app/services/line-selection.service';
 
 @Component({
   selector: 'add-ticket',
@@ -21,7 +22,8 @@ export class AddTicketComponent implements OnInit {
   constructor(private ticketSvc: TicketService,
     private zoneSelectionSvc: ZoneSelectionService,
     private lineSelectionSvc: LineSelectionService,
-    private additionaLineSelectionSvc: AdditionalLineSelectionService
+    private additionaLineSelectionSvc: AdditionalLineSelectionService,
+    private router: Router
   ) {
   }
 
@@ -32,11 +34,11 @@ export class AddTicketComponent implements OnInit {
       animation: true
     });
     this.zoneSelectionSvc.currentZones
-      .subscribe(selectedZones => this.ticket.zones = selectedZones);
+      .subscribe(selectedZones => this.ticket.zones = Array.from(selectedZones));
     this.lineSelectionSvc.currentLines
-      .subscribe(selectedLines => this.ticket.lines = selectedLines);
+      .subscribe(selectedLines => this.ticket.lines = Array.from(selectedLines));
     this.additionaLineSelectionSvc.currentAdditionalLines
-      .subscribe(selectedAdditionalLines => this.ticket.additionalLines = selectedAdditionalLines);
+      .subscribe(selectedAdditionalLines => this.ticket.additionalLines = Array.from(selectedAdditionalLines));
   }
 
   prev() {
@@ -48,12 +50,12 @@ export class AddTicketComponent implements OnInit {
     this.stepper.next();
   }
 
-  filterLines(){
+  filterLines() {
     this.shouldFilterLines = true;
   }
 
   onSubmit() {
-    this.ticketSvc.addTicket(this.ticket);
+    this.ticketSvc.addTicket(this.ticket).subscribe(() => this.router.navigateByUrl("/tickets"));
     return false;
   }
 

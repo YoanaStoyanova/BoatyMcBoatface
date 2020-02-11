@@ -1,6 +1,6 @@
-import { ZoneSelectionService } from './../../../services/zone-selection.service';
-import { ZoneModel } from './../../../model/zone-model';
-import { ZoneService } from './../../../services/zone.service';
+import { ZoneSelectionService } from 'src/app/services/zone-selection.service';
+import { ZoneModel } from 'src/app/model/zone-model';
+import { ZoneService } from 'src/app/services/zone.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { StationModel } from 'src/app/model/station-model';
 
