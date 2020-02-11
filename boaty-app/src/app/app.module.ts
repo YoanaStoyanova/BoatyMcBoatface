@@ -17,8 +17,10 @@ import { HttpClientModule } from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {AuthorizationService} from "./services/authorization.service";
 import { RegisterComponent } from './register/register.component';
-import { AddStationComponent } from './add-station/add-station/add-station.component';
-import { ViewStationsComponent } from './view-stations/view-stations/view-stations.component';
+import { AddStationComponent } from './stations/add-station/add-station.component';
+import { ViewStationsComponent } from './stations/view-stations/view-stations.component';
+import { AddZoneComponent } from './zones/add-zone/add-zone.component';
+import { ViewZonesComponent } from './zones/view-zones/view-zones.component';
 
 export function tokenGetter() {
 
@@ -41,7 +43,9 @@ export function tokenGetter() {
     LoginComponent,
     RegisterComponent,
     AddStationComponent,
-    ViewStationsComponent
+    ViewStationsComponent,
+    AddZoneComponent,
+    ViewZonesComponent
   ],
   imports: [
     BrowserModule,

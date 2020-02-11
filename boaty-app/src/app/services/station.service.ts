@@ -2,7 +2,6 @@ import { environment } from './../../environments/environment';
 import { StationModel } from './../model/station-model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { stat } from 'fs';
 
 @Injectable({
   providedIn: 'root'

@@ -35,14 +35,12 @@ public class StationController {
 
    @PostMapping
    public Station addStation(@RequestBody StationDetails s) {
-      Station station = new Station(s.getName());
-      return stationService.addStation(station);
+      return stationService.addStation(s);
    }
 
    @PostMapping("/{station_id}")
    public StationDetails updateStation(@PathVariable(name = "station_id") Long stationId, @RequestBody StationDetails s) {
-      Station station = new Station(s.getId(), s.getName(), null, null);
-      return getStationDetails(stationService.updateStation(station));
+      return getStationDetails(stationService.updateStation(s));
    }
 
    @DeleteMapping("/{station_id}")

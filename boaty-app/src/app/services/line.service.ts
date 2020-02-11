@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 export class LineService {
 
   lines = [
-    { "id": 1, "name": "Line 1", "stations": [new StationModel(1, "station 1", null, null)], "selected": false, transportType: TransportTypeEnum.BUS },
+    { "id": 1, "name": "Line 1", "stations": [new StationModel(1, "station 1", null, null, false)], "selected": false, transportType: TransportTypeEnum.BUS },
     { "id": 2, "name": "Line 2", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },
     { "id": 3, "name": "Line 3", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },
     { "id": 4, "name": "Line 4", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },

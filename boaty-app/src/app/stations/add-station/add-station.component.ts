@@ -5,8 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-add-station',
-  templateUrl: './add-station.component.html',
-  styleUrls: ['./add-station.component.css']
+  templateUrl: './add-station.component.html'
 })
 export class AddStationComponent implements OnInit {
 
