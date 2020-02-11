@@ -31,4 +31,8 @@ export class ZoneService {
   public updateZone(zone: ZoneModel) {
     return this.http.post(`${environment.baseUrl}/zones/${zone.id}`, zone);
   }
+
+  public deleteZone(zone: ZoneModel){
+    return this.http.delete(`${environment.baseUrl}/zones/${zone.id}`);
+  }
 }

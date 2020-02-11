@@ -1,5 +1,7 @@
+import { environment } from './../../environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
 import { LineModel } from 'src/app/model/line-model';
-import { TransportTypeEnum } from './../model/transport-type-model';
+import { TransportTypeEnum, TransportTypeModel } from './../model/transport-type-model';
 import { StationModel } from './../model/station-model';
 import { Injectable } from '@angular/core';
 
@@ -8,20 +10,21 @@ import { Injectable } from '@angular/core';
 })
 export class LineService {
 
-  lines = [
-    { "id": 1, "name": "Line 1", "stations": [new StationModel(1, "station 1", null, null, false)], "selected": false, transportType: TransportTypeEnum.BUS },
-    { "id": 2, "name": "Line 2", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },
-    { "id": 3, "name": "Line 3", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },
-    { "id": 4, "name": "Line 4", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },
-    { "id": 5, "name": "Line 5", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS },
-    { "id": 6, "name": "Line 6", "stations": new Array<StationModel>(), "selected": false, transportType: TransportTypeEnum.BUS }
-  ]
-
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public getLines() {
-   let res = new Array<LineModel>();
-    this.lines.forEach(line => res.push(new LineModel(line.id, line.name, line.stations, line.selected, line.transportType)));
-    return res;
+    return this.http.get<LineModel[]>(`${environment.baseUrl}/lines`);
+  }
+
+  public addLine(line: LineModel) {
+    return this.http.post<LineModel>(`${environment.baseUrl}/lines`, line);
+  }
+
+  public updateLine(line: LineModel) {
+    return this.http.post<LineModel>(`${environment.baseUrl}/lines/${line.id}`, line);
+  }
+
+  public deleteLine(line: LineModel) {
+    return this.http.delete<LineModel>(`${environment.baseUrl}/lines/${line.id}`);
   }
 }

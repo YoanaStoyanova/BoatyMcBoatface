@@ -1,3 +1,5 @@
+import { ViewLinesComponent } from './lines/view-lines/view-lines.component';
+import { AddLineComponent } from './lines/add-line/add-line.component';
 import { AddZoneComponent } from './zones/add-zone/add-zone.component';
 import { ViewZonesComponent } from './zones/view-zones/view-zones.component';
 import { ViewStationsComponent } from './stations/view-stations/view-stations.component';
@@ -18,7 +20,8 @@ const routes: Routes = [
   { path: 'admin/tickets', component: AddTicketComponent},
   { path: 'admin/stations/add', component: AddStationComponent},
   { path: 'admin/stations', component: ViewStationsComponent},
-  { path: 'admin/lines', component: AddTicketComponent},
+  { path: 'admin/lines/add', component: AddLineComponent },
+  { path: 'admin/lines', component: ViewLinesComponent },
   { path: 'admin/zones', component: ViewZonesComponent},
   { path: 'admin/zones/add', component: AddZoneComponent},
   { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard], data: {allowedRoles: ["USER"]} },

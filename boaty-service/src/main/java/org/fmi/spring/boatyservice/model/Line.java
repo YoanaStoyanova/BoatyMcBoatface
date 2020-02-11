@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,15 +33,15 @@ public class Line {
    @JoinColumn(name = "transportTypeId")
    private TransportType transportType;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "line_stations",
          joinColumns = @JoinColumn(name = "line_id"),
          inverseJoinColumns = @JoinColumn(name = "station_id"))
    private Set<Station> stations;
 
-   @ManyToMany(mappedBy = "lines")
+   @ManyToMany(mappedBy = "lines", fetch = FetchType.EAGER)
    private Set<Ticket> tickets;
 
-   @ManyToMany(mappedBy = "additionalLines")
+   @ManyToMany(mappedBy = "additionalLines", fetch = FetchType.EAGER)
    private Set<Ticket> additionalTickets;
 }

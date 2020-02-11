@@ -7,4 +7,10 @@ import java.util.List;
 public interface LineService {
 
    List<Line> getAllLines();
+
+   Line addLine(Line l);
+
+   Line updateLine(Line l);
+
+   Line deleteLine(Long id);
 }

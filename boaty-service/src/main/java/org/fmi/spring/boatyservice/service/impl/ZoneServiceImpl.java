@@ -77,7 +77,9 @@ public class ZoneServiceImpl implements ZoneService {
 
    @Override
    public Zone deleteZone(Long id) {
-      return null;
+      Zone oldZone = loadById(id);
+      repository.deleteById(id);
+      return oldZone;
    }
 
 }

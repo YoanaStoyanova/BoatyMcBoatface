@@ -23,6 +23,8 @@ import { AddZoneComponent } from './zones/add-zone/add-zone.component';
 import { ViewZonesComponent } from './zones/view-zones/view-zones.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
+import { AddLineComponent } from './lines/add-line/add-line.component';
+import { ViewLinesComponent } from './lines/view-lines/view-lines.component';
 
 export function tokenGetter() {
 
@@ -50,7 +52,9 @@ export function tokenGetter() {
     ViewZonesComponent,
     RegisterComponent,
     PaymentsComponent,
-    AddPaymentComponent
+    AddPaymentComponent,
+    AddLineComponent,
+    ViewLinesComponent
   ],
   imports: [
     BrowserModule,

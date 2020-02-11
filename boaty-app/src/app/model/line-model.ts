@@ -1,4 +1,4 @@
-import { TransportTypeEnum } from './transport-type-model';
+import { TransportTypeEnum, TransportTypeModel } from './transport-type-model';
 import { StationModel } from './station-model';
 export class LineModel {
 
@@ -6,5 +6,5 @@ export class LineModel {
         public name: string,
         public stations: Array<StationModel>,
         public selected: boolean,
-        public transportType: TransportTypeEnum) { }
+        public transportType: TransportTypeModel) { }
 }

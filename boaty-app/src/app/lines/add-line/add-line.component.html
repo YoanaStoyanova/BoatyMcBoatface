@@ -1,0 +1,69 @@
+<div class="row mt-5">
+  <div class="col-lg-3"></div>
+  <div class="bs-stepper col-lg-6">
+    <div class="bs-stepper-header" role="tablist">
+      <div class="step" data-target="#details-part">
+        <button type="button" class="step-trigger" role="tab" aria-controls="details-part" id="details-part-trigger">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Details</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#stations-part">
+        <button type="button" class="step-trigger" role="tab" aria-controls="stations-part" id="stations-part-trigger">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Stations</span>
+        </button>
+      </div>
+    </div>
+    <div class="bs-stepper-content">
+      <form class="mt-5">
+        <div id="details-part" class="content" role="tabpanel" aria-labelledby="details-part-trigger">
+          <div class="row mb-4">Choose line details</div>
+          <div class="form-group mb-4">
+            <label for="nameInput">Name</label>
+            <input type="text" class="form-control" id="nameInput" name="lineName" [(ngModel)]="line.name"
+              placeholder="Line 12">
+          </div>
+          <div class="form-group mb-4">
+            <label for="transportTypes mb-4">Choose line's transport type</label>
+            <select [(ngModel)]="selectedTransportType" data-show-content="true" name="selectTrTp" class="browser-default custom-select" id="transportTypes" title="Choose line's transport type">
+              <option *ngFor="let transportType of transportTypes" [ngValue]="transportType">
+                <i [ngClass]="'mr-4 fa fa-lg '  + transportType.icon"></i>{{transportType.name}}
+              </option>
+            </select>
+          </div>
+          <button (click)="next()" class="mt-4 btn btn-success float-right">Next</button>
+        </div>
+        <div id="stations-part" class="content" role="tabpanel" aria-labelledby="stations-part-trigger">
+          <div class="form-group mb-4">
+            <label for="nameInput">Stations</label>
+            <div class="row pb-2 pt-2 border bg-light">
+              <div class="col-lg-2 custom-control custom-checkbox" align="left">
+                <input type="checkbox" [attr.id]="selectAllStations" name="asds" [(ngModel)]="selectAllStations"
+                  (change)="toggleAllStations()" />
+              </div>
+              <div class="pl-4 col-lg-6" align="left">Select All stations</div>
+            </div>
+            <div class="row pb-2 pt-2 border bg-light" *ngFor="let station of stations">
+              <div class="col-lg-2 custom-control custom-checkbox" align="left">
+                <input type="checkbox" [attr.id]="station.selected" name="{{station.name}}"
+                  [(ngModel)]="station.selected" />
+              </div>
+              <div class="pl-4 col-lg-6" align="left">{{station.name}}</div>
+            </div>
+          </div>
+          <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group">
+              <button (click)="cancel()" class="mt-4 btn btn-light">Cancel</button>
+            </div>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+              <button (click)="prev()" class="mt-4 btn btn-light">Previous</button>
+              <button (click)="submit()" class="mt-4 btn btn-success">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

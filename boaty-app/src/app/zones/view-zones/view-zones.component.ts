@@ -50,6 +50,10 @@ export class ViewZonesComponent implements OnInit {
     this.newZoneName = zone.name;
     this.edit = true;
     this.editIndex = i;
+    this.toggledStations.forEach((station: StationModel, key: number) => {
+      station.selected = !station.selected;
+    });
+    this.toggledStations = new Map();
   }
 
   submitEdit(zone: ZoneModel) {
@@ -76,9 +80,7 @@ export class ViewZonesComponent implements OnInit {
   }
 
   delete(zone: ZoneModel) {
-    //  this.stationService.deleteStation(station).subscribe(result => {
-    //   this.ngOnInit();
-    // });
+    this.zoneService.deleteZone(zone).subscribe(() => this.ngOnInit());
   }
 
   shouldShow(zone: ZoneModel, i: number) {

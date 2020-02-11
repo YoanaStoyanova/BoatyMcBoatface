@@ -23,6 +23,6 @@ public class TransportType {
 
    private String name;
 
-   private Status status;
+   private String icon;
 
 }

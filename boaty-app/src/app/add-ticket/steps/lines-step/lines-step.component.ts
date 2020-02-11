@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { ZoneSelectionService } from './../../../services/zone-selection.service';
 import { AdditionalLinesStepComponent } from './../additional-lines-step/additional-lines-step.component';
 import { TransportTypeSelectionService } from './../../../services/transport-type-selection.service';
@@ -51,18 +52,21 @@ export class LinesStepComponent implements OnInit {
       .subscribe(selectedTransportTypes => this.selectedTransportTypes = selectedTransportTypes);
     this.zoneSelectionService.currentZones
       .subscribe(selectedZones => this.selectedZones = selectedZones);
-    this.allLines = this.lineService.getLines();
+    this.lineService.getLines().subscribe(allLines => this.allLines = allLines);
   }
 
-  ngOnChanges(){
-    if(this.shouldFilterLines){
+  ngOnChanges() {
+    if (this.shouldFilterLines) {
       this.lines = this.filterSelectedLines();
     }
   }
 
   getLines() {
-    this.allLines = this.lineService.getLines();
-    return this.filterSelectedLines();
+    return this.lineService.getLines().subscribe(allLines => {
+      this.allLines = allLines;
+      return this.filterSelectedLines();
+    });
+
   }
 
   filterSelectedLines() {
@@ -76,7 +80,7 @@ export class LinesStepComponent implements OnInit {
 
   matchesSelectedTransportType(line: LineModel) {
     for (let selectedTransportType of this.selectedTransportTypes) {
-      if (line.transportType === selectedTransportType.id) {
+      if (line.transportType.id === selectedTransportType.id) {
         return true;
       }
     }
@@ -109,7 +113,7 @@ export class LinesStepComponent implements OnInit {
   open() {
     let ref = this.modalService.open(AdditionalLinesStepComponent);
     let additionaLines = new Array<LineModel>();
-    this.lineService.getLines().map(line => additionaLines.push(new LineModel(line.id, line.name, line.stations, false, line.transportType)));
+    this.lineService.getLines().pipe(map(lines => lines.map(line => additionaLines.push(new LineModel(line.id, line.name, line.stations, false, line.transportType)))));
     ref.componentInstance.lines = additionaLines;
   }
 }

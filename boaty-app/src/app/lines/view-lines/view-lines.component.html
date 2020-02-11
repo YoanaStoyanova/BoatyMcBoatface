@@ -1,27 +1,29 @@
 <div class="row mt-5">
   <div class="col-lg-2"></div>
-  <div class="row mb-5 h3">Zones details</div>
+  <div class="row mb-5 h3">Line details</div>
   <div class="accordion col-lg-6 mt-5" id="accordionExample">
-    <div class="card" *ngFor="let zone of zones; index as i">
+    <div class="card" *ngFor="let line of lines; index as i">
       <div class="card-header" id="headingTwo">
         <h2 class="mb-0">
           <div class="btn-toolbar mb-3 justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
             <button class="btn btn-link collapsed" type="button" [hidden]="edit && editIndex == i"
               data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              {{zone.name}}
+              <div class="pl-4 col-lg-6" align="left">
+                <span [ngClass]="'mr-4 fa fa-lg ' + line.transportType.icon"></span>
+                {{line.name}}</div>
             </button>
             <div class="input-group" [hidden]="!edit || editIndex != i">
               <input type="text" class="form-control" placeholder="Input group example" aria-label="Input group example"
-                [(ngModel)]="newZoneName" aria-describedby="btnGroupAddon">
+                [(ngModel)]="newLineName" aria-describedby="btnGroupAddon">
             </div>
             <div class="btn-group mr-2 float-right" role="group" aria-label="First group"
               [hidden]="edit && editIndex == i">
-              <button type="button" class="btn btn-success" (click)="triggerEdit(zone, i)">Edit</button>
-              <button type="button" class="btn btn-danger" (click)="delete(zone)">Delete</button>
+              <button type="button" class="btn btn-success" (click)="triggerEdit(line, i)">Edit</button>
+              <button type="button" class="btn btn-danger" (click)="delete(line)">Delete</button>
             </div>
             <div class="btn-group float-right col-lg-4" role="group" [hidden]="!edit || editIndex != i"
               aria-label="Basic example">
-              <button type="button" class="btn btn-primary" (click)="submitEdit(zone)">Ok</button>
+              <button type="button" class="btn btn-primary" (click)="submitEdit(line)">Ok</button>
               <button type="button" class="btn btn-light" (click)="cancelEdit()">Cancel</button>
             </div>
           </div>
@@ -35,11 +37,11 @@
             <div class="row pb-2 pt-2 border bg-light">
               <div class="col-lg-2 custom-control custom-checkbox" align="left">
                 <input type="checkbox" [attr.id]="selectAllStations" name="asds" [(ngModel)]="selectAllStations"
-                  (change)="toggleAllStations(zone.stations)" />
+                  (change)="toggleAllStations(line.stations)" />
               </div>
               <div class=" col-lg-6" align="left">Select All stations</div>
             </div>
-            <div class="row pb-2 pt-2 border bg-light" *ngFor="let station of zone.stations">
+            <div class="row pb-2 pt-2 border bg-light" *ngFor="let station of line.stations">
               <div class="col-lg-6 custom-control custom-checkbox" align="left">
                 <input type="checkbox" [attr.id]="station.selected" name="{{station.name}}"
                   [(ngModel)]="station.selected" (click)="toggleStation(station)"/>
