@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "./services/authentication.service";
+import {UserModel} from "./model/user-model";
+import {UserService} from "./services/user.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -6,19 +10,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
+  currentUser :UserModel;
   title = 'boatyApp';
   showSideMenu = true;
   sideMenuIconClass = "fa-angle-double-left";
   toggled = '';
-  isCollapsed = true;
+
+  constructor(private authService :AuthenticationService,
+              private userService :UserService) {
+  }
 
   public toggleSideMenu() {
-    console.log("toggling side menu");
     this.showSideMenu = !this.showSideMenu;
     this.toggled = this.toggled == '' ? 'toggled' : '';
     this.sideMenuIconClass = this.sideMenuIconClass === "fa-angle-double-left" ? "fa-angle-double-right" : "fa-angle-double-left";
   }
-  
+
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.userService.getCurrent().subscribe(user => this.currentUser = user);
+    }
+  }
 }

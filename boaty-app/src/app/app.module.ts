@@ -17,12 +17,14 @@ import { HttpClientModule } from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {AuthorizationService} from "./services/authorization.service";
 import { RegisterComponent } from './register/register.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { AddPaymentComponent } from './add-payment/add-payment.component';
 
 export function tokenGetter() {
 
   let token = localStorage.getItem('token');
   if (token != null) {
-    return token;
+    return JSON.parse(token)["token"];
   }
   return null;
 }
@@ -37,7 +39,9 @@ export function tokenGetter() {
     TransportTypeStepComponent,
     AdditionalLinesStepComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PaymentsComponent,
+    AddPaymentComponent
   ],
   imports: [
     BrowserModule,

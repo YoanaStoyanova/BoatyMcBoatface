@@ -13,15 +13,15 @@ export class UserService {
         return this.http.post<UserModel>(`${environment.baseUrl}/users`, user);
     }
 
-    getCurrent() {
+    public getCurrent() {
         return this.http.get<UserModel>(`${environment.baseUrl}/me`);
     }
 
-    getById(id: number) {
+    public getById(id: number) {
         return this.http.get<UserModel>(`${environment.baseUrl}/users/${id}`);
     }
 
-    delete(id: number) {
+    public delete(id: number) {
         return this.http.delete(`${environment.baseUrl}/users/${id}`);
     }
 }

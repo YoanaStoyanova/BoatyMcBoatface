@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/payments")
 public class CardDetailsOps {
 
-    private static final DateTimeFormatter CARD_VALIDITY_FORMAT = DateTimeFormatter.ofPattern("yy/M");
+    private static final DateTimeFormatter CARD_VALIDITY_FORMAT = DateTimeFormatter.ofPattern("M/yy");
 
     @Autowired
     private PaymentDetailsService paymentDetailsService;
@@ -40,7 +40,7 @@ public class CardDetailsOps {
         return new PagedResponse<>(cardsPage);
     }
 
-    @PostMapping("/user_id}/cards")
+    @PostMapping("/{user_id}/cards")
     CardPaymentDetails registerCardPaymentMethod(
         @PathVariable(name = "user_id") long userId,
         @RequestBody CardSpec cardSpec) {

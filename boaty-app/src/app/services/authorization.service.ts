@@ -19,19 +19,16 @@ export class AuthorizationService {
             return false;
         }
 
-        const token = JSON.parse(rawToken);
-
         // decode token to read the payload details
-        const decodedToken = this.jwtHelperService.decodeToken(token["token"]);
+        const decodedToken = this.jwtHelperService.decodeToken(rawToken);
 
         // check if it was decoded successfully, if not the token is not valid, deny access
-        if (!decodedToken || this.jwtHelperService.isTokenExpired(token["token"])) {
+        if (!decodedToken || this.jwtHelperService.isTokenExpired(rawToken)) {
             console.log('Invalid token');
             return false;
         }
 
-        console.log(allowedRoles);
         // check if the user roles is in the list of allowed roles, return true if allowed and false if not allowed
-        return allowedRoles.includes(decodedToken['auth']);
+        return decodedToken['auth'].filter(role => allowedRoles.includes(role)).length > 0;
     }
 }

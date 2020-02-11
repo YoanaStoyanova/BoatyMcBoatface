@@ -9,11 +9,11 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private tokenSubject: BehaviorSubject<TokenModel>;
-    public token: Observable<TokenModel>;
+    private tokenSubject: BehaviorSubject<string>;
+    public token: Observable<string>;
 
     constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) {
-        this.tokenSubject = new BehaviorSubject<TokenModel>(JSON.parse(this.jwtHelperService.tokenGetter()));
+        this.tokenSubject = new BehaviorSubject<string>(this.jwtHelperService.tokenGetter());
         this.token = this.tokenSubject.asObservable();
     }
 
@@ -21,7 +21,7 @@ export class AuthenticationService {
         return this.tokenSubject.value != null;
     }
 
-    public get tokenValue(): TokenModel {
+    public get tokenValue(): string {
         return this.tokenSubject.value;
     }
 
@@ -38,7 +38,7 @@ export class AuthenticationService {
                 if (token && token.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('token', JSON.stringify(token));
-                    this.tokenSubject.next(token);
+                    this.tokenSubject.next(token.token);
                 }
                 return token;
             }));
