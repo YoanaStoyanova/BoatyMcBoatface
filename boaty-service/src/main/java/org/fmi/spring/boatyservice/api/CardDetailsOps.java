@@ -50,8 +50,9 @@ public class CardDetailsOps {
         return new CardPaymentDetails(paymentDetailsService.registerPaymentMethod(userId, card));
     }
 
-    @DeleteMapping("/cards/{card_id}")
-    void deletePaymentMethod(@PathVariable(name = "card_id") long cardId) {
+    @DeleteMapping("{user_id}/cards/{card_id}")
+    void deletePaymentMethod(
+        @PathVariable(name = "card_id") long cardId) {
         paymentDetailsService.deletePaymentMethod(cardId);
     }
 

@@ -154,8 +154,8 @@
                            <processLogFile>${project.build.directory}/boaty.log</processLogFile>
                            <arguments>
                                <argumnet>java</argumnet>
-                               <!-- <argument>-Xdebug</argument>
-                               <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009</argument> -->
+                               <argument>-Xdebug</argument>
+                               <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009</argument>
                                <argument>-jar</argument>
                                <argument>-Dserver.port=${boaty.test.port}</argument>
                                <argument>-Ddb.port=${test.ps.port}</argument>

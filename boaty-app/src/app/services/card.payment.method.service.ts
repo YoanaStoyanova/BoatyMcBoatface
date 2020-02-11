@@ -13,8 +13,8 @@ export class CardPaymentMethodService {
         return this.http.get<PagedResponseModel<CardPaymentMethodModel>>(`${environment.baseUrl}/payments/${userId}/cards`);
     }
 
-    public deleteCard(cardId :number) {
-        return this.http.delete<PagedResponseModel<CardPaymentMethodModel>>(`${environment.baseUrl}/payments/cards/${cardId}`);
+    public deleteCard(userId :number, cardId :number) {
+        return this.http.delete<PagedResponseModel<CardPaymentMethodModel>>(`${environment.baseUrl}/payments/${userId}/cards/${cardId}`);
     }
 
     public addCard(userId :number, card :AddCardModel) {

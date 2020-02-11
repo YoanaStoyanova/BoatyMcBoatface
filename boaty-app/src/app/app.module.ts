@@ -26,6 +26,7 @@ import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
 import { ViewLinesComponent } from './lines/view-lines/view-lines.component';
 import { ViewTicketComponent } from './ticket/view-ticket/view-ticket.component';
+import { HomeComponent } from './home/home.component';
 
 export function tokenGetter() {
 
@@ -56,7 +57,9 @@ export function tokenGetter() {
     AddPaymentComponent,
     AddLineComponent,
     ViewLinesComponent,
-    ViewTicketComponent
+    ViewTicketComponent,
+    ViewLinesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

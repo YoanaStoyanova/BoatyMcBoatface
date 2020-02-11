@@ -25,11 +25,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
             .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/users/*").authenticated()
+            // Users
+                .antMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/api/users/*").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/users/*").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/tokens").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/users/*/top-up").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/users/*").authenticated()
+            // Zones
+                .antMatchers(HttpMethod.GET, "/api/zones").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/zones").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/zones/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/zones/*").hasRole("ADMIN")
+            // Tickets
+                .antMatchers(HttpMethod.GET, "/api/tickets").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/tickets/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/tickets").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/tickets/*").hasRole("ADMIN")
+            // CardDetails
+                .antMatchers(HttpMethod.GET, "/api/payments/*/cards").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/payments/*/cards").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/payments/*/cards/*").authenticated()
+            // Stations
+                .antMatchers(HttpMethod.GET, "/api/stations").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/stations/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/stations").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/stations/*").hasRole("ADMIN")
+            // Lines
+                .antMatchers(HttpMethod.GET, "/api/lines").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/lines/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/lines").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/lines/*").hasRole("ADMIN")
+
             .and()
                 .httpBasic()
             .and()
