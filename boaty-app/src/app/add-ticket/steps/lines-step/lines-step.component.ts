@@ -1,5 +1,3 @@
-import { tick } from '@angular/core/src/render3';
-import { TicketModel } from './../../../model/ticket-model';
 import { ZoneSelectionService } from './../../../services/zone-selection.service';
 import { AdditionalLinesStepComponent } from './../additional-lines-step/additional-lines-step.component';
 import { TransportTypeSelectionService } from './../../../services/transport-type-selection.service';
@@ -19,6 +17,7 @@ import { LineSelectionService } from 'src/app/services/line-selection.service';
 export class LinesStepComponent implements OnInit {
 
   allLines: Array<LineModel>;
+  lines: Array<LineModel>;
   selectedTransportTypes: Array<TransportTypeModel>;
   selectedZones: Set<ZoneModel>;
   modalOptions: NgbModalOptions;
@@ -32,6 +31,9 @@ export class LinesStepComponent implements OnInit {
   @Input()
   ticket: any;
 
+  @Input()
+  shouldFilterLines: boolean;
+
   constructor(private lineService: LineService,
     private transportTypeSelectionService: TransportTypeSelectionService,
     private zoneSelectionService: ZoneSelectionService,
@@ -44,11 +46,18 @@ export class LinesStepComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.lines = new Array<LineModel>();
     this.transportTypeSelectionService.currentTransportTypes
       .subscribe(selectedTransportTypes => this.selectedTransportTypes = selectedTransportTypes);
     this.zoneSelectionService.currentZones
       .subscribe(selectedZones => this.selectedZones = selectedZones);
     this.allLines = this.lineService.getLines();
+  }
+
+  ngOnChanges(){
+    if(this.shouldFilterLines){
+      this.lines = this.filterSelectedLines();
+    }
   }
 
   getLines() {
@@ -92,7 +101,7 @@ export class LinesStepComponent implements OnInit {
   }
 
   submit() {
-    let linesToSelect = this.allLines.filter(line => line.selected);
+    let linesToSelect = this.lines.filter(line => line.selected);
     this.lineSelectionService.setSelectedLines(new Set(linesToSelect));
     this.next.emit();
   }

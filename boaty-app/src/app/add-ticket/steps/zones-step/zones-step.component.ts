@@ -25,7 +25,7 @@ export class ZonesStepComponent implements OnInit {
     private zoneSelectionService: ZoneSelectionService) { }
 
   ngOnInit() {
-    this.zones = this.zoneService.getZones();
+    this.zoneService.getZones().subscribe(zones => this.zones = zones);
   }
 
   toggleAllZones() {

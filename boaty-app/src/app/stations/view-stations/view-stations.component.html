@@ -1,0 +1,26 @@
+<div class="row mt-5">
+  <div class="col-lg-3"></div>
+  <div id="zones-part" class="content col-lg-6" role="tabpanel" aria-labelledby="zones-part-trigger">
+    <div class="row mb-4">Stations</div>
+    <div class="form-group">
+      <div class="row mb-4">
+        <div class="pl-4 col-lg-4" align="left">Name</div>
+        <div class="pl-4 col-lg-4" align="left">Zone</div>
+      </div>
+      <div class="row pb-2 pt-2 border bg-light" *ngFor="let station of stations | async; index as i">
+        <div class="pl-4 col-lg-4" [hidden]="edit && editIndex == i" align="left">{{station.name}}</div>
+        <input class="pl-4 col-lg-4" [hidden]="!edit || editIndex != i" [(ngModel)]="newStationName">
+        <div *ngIf="station.zoneName" class="pl-4 col-lg-4" align="left">{{station.zoneName}}</div>
+        <div *ngIf="!station.zoneName" class="pl-4 col-lg-4" align="left"></div>
+        <div class="btn-group float-right col-lg-4" role="group" [hidden]="edit && editIndex == i" aria-label="Basic example">
+          <button type="button" class="btn btn-success" (click)="triggerEdit(station, i)">Edit</button>
+          <button type="button" class="btn btn-danger" (click)="delete(station)">Delete</button>
+        </div>
+        <div class="btn-group float-right col-lg-4" role="group" [hidden]="!edit || editIndex != i" aria-label="Basic example">
+          <button type="button" class="btn btn-primary" (click)="submitEdit(station)">Ok</button>
+          <button type="button" class="btn btn-light" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

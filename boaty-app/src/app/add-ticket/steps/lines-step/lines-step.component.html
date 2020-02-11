@@ -11,7 +11,7 @@
       <div class="col-lg-2" align="left">Select</div>
       <div class="pl-4 col-lg-6" align="left">Line name</div>
     </div>
-    <div class="row pb-2 pt-2 border bg-light" *ngFor="let line of filterSelectedLines()">
+    <div class="row pb-2 pt-2 border bg-light" *ngFor="let line of lines">
       <div class="col-lg-2 custom-control custom-checkbox" align="left">
         <input type="checkbox" [attr.id]="line.selected" name="{{line.name}}" [(ngModel)]="line.selected" />
       </div>

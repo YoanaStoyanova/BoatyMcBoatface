@@ -17,6 +17,10 @@ import { HttpClientModule } from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {AuthorizationService} from "./services/authorization.service";
 import { RegisterComponent } from './register/register.component';
+import { AddStationComponent } from './stations/add-station/add-station.component';
+import { ViewStationsComponent } from './stations/view-stations/view-stations.component';
+import { AddZoneComponent } from './zones/add-zone/add-zone.component';
+import { ViewZonesComponent } from './zones/view-zones/view-zones.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 
@@ -39,6 +43,11 @@ export function tokenGetter() {
     TransportTypeStepComponent,
     AdditionalLinesStepComponent,
     LoginComponent,
+    RegisterComponent,
+    AddStationComponent,
+    ViewStationsComponent,
+    AddZoneComponent,
+    ViewZonesComponent,
     RegisterComponent,
     PaymentsComponent,
     AddPaymentComponent

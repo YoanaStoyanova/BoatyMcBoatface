@@ -1,42 +1,51 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div [ngClass]="'d-flex ' + toggled" id="wrapper">
 
-    <!-- Sidebar -->
-    <div *ngIf="authService.isAuthenticated()" class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">BoatyApp</div>
-        <div class="list-group" style="padding: 0px;">
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" style="padding: 0px;">
-                <ngb-panel title="Tickets" type="light" style="padding: 0px;">
-                    <ng-template ngbPanelContent style="padding: 0px;">
-                        <div class="list-group" style="padding: 0px;">
-                            <a href="#" class="list-group-item list-group-item-action bg-light">Buy ticket</a>
-                            <a href="#" class="list-group-item list-group-item-action bg-light">Add new ticket definition</a>
-                            <a href="#" class="list-group-item list-group-item-action bg-light">View/Edit tickets</a>
-                        </div>
-                    </ng-template>
-                </ngb-panel>
-                <ngb-panel title="Tickets" type="light" style="padding: 0px;">
-                    <ng-template ngbPanelContent style="padding: 0px;">
-                        <div class="list-group" style="padding: 0px;">
-                            <a href="#" class="list-group-item list-group-item-action bg-light">Buy ticket</a>
-                            <a href="#" class="list-group-item list-group-item-action bg-light">Add new ticket definition</a>
-                            <a href="#" class="list-group-item list-group-item-action bg-light">View/Edit tickets</a>
-                        </div>
-                    </ng-template>
-                </ngb-panel>
-
-            </ngb-accordion>
-        </div>
-        <!-- <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
-        </div> -->
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Start Bootstrap</div>
+    <div class="list-group" style="padding: 0px;">
+      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" style="padding: 0px;">
+        <ngb-panel title="Tickets" type="light" style="padding: 0px;">
+          <ng-template ngbPanelContent style="padding: 0px;">
+            <div class="list-group" style="padding: 0px;">
+              <a href="#" class="list-group-item list-group-item-action bg-light">Buy ticket</a>
+              <a href="admin/tickets/add" class="list-group-item list-group-item-action bg-light">Add new ticket
+                definition</a>
+              <a href="#" class="list-group-item list-group-item-action bg-light">View/Edit tickets</a>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="Stations" type="light" style="padding: 0px;">
+          <ng-template ngbPanelContent style="padding: 0px;">
+            <div class="list-group" style="padding: 0px;">
+              <a href="/admin/stations/add" class="list-group-item list-group-item-action bg-light">Add new station
+                definition</a>
+              <a href="/admin/stations" class="list-group-item list-group-item-action bg-light">View/Edit stations</a>
+            </div>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="Zones" type="light" style="padding: 0px;">
+          <ng-template ngbPanelContent style="padding: 0px;">
+            <div class="list-group" style="padding: 0px;">
+              <a href="/admin/zones/add" class="list-group-item list-group-item-action bg-light">Add new zone
+                definition</a>
+              <a href="/admin/zones" class="list-group-item list-group-item-action bg-light">View/Edit zones</a>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
     </div>
-    <!-- /#sidebar-wrapper -->
+    <!-- <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+      </div> -->
+  </div>
+  <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">

@@ -19,6 +19,9 @@ export class TransportTypeStepComponent implements OnInit {
   @Output()
   prev = new EventEmitter<string>();
 
+  @Output()
+  filterLines = new EventEmitter<string>();
+
   constructor(private transportTypeService: TransportTypeService,
     private transportTypeSelectionService: TransportTypeSelectionService) { }
 
@@ -33,6 +36,7 @@ export class TransportTypeStepComponent implements OnInit {
   submit() {
     let selectedTransportTypes = this.transportTypes.filter(transportType => transportType.selected);
     this.transportTypeSelectionService.setSelectedTransportTypes(selectedTransportTypes);
+    this.filterLines.emit();
     this.next.emit();
   }
 }
