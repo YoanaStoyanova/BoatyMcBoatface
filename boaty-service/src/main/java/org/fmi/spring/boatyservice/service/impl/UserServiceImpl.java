@@ -1,11 +1,15 @@
 package org.fmi.spring.boatyservice.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.fmi.spring.boatyservice.api.bindings.TopUpSpec;
 import org.fmi.spring.boatyservice.api.bindings.UserDetailsSpec;
 import org.fmi.spring.boatyservice.exception.ApplicationException;
+import org.fmi.spring.boatyservice.model.Ticket;
 import org.fmi.spring.boatyservice.model.User;
+import org.fmi.spring.boatyservice.model.UserPurchasedTickets;
+import org.fmi.spring.boatyservice.repository.PurchasedTicketRepository;
 import org.fmi.spring.boatyservice.repository.UserRepository;
 import org.fmi.spring.boatyservice.service.PaymentService;
 import org.fmi.spring.boatyservice.service.UserService;
@@ -21,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PurchasedTicketRepository purchasedTicketRepository;
 
     @Autowired
     private List<PaymentService> paymentServices;
@@ -67,5 +74,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<UserPurchasedTickets> getPurchasedTickets(Long userId) {
+        return purchasedTicketRepository.findAllByUser(loadById(userId));
     }
 }

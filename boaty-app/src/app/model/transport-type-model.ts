@@ -8,7 +8,7 @@ export class TransportTypeModel {
 }
 
 export enum TransportTypeEnum {
-    BUS,
+    BUS = 1,
     SUBWAY,
     TRAIN,
     TRAM,

@@ -18,7 +18,15 @@ export class TicketService {
     return this.http.post<TicketModel>(`${environment.baseUrl}/tickets`, ticket);
   }
 
-  public deleteTicket(ticket: TicketModel){
+  public deleteTicket(ticket: TicketModel) {
     return this.http.delete<TicketModel>(`${environment.baseUrl}/tickets/${ticket.id}`);
+  }
+
+  public buyTicket(ticket :TicketModel) {
+    return this.http.post<TicketModel>(`${environment.baseUrl}/purchase/ticket/${ticket.id}`, ticket);
+  }
+
+  public viewPurchasedTickets(userId :number) {
+    return this.http.get<TicketModel[]>(`${environment.baseUrl}/purchase/ticket/${userId}`);
   }
 }

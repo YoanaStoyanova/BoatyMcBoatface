@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-center">
+                <table *ngIf="tickets != null noPurchases" class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Validation code</th>
+                        <th scope="col">Valid until</th>
+                        <th scope="col">Ticket type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ticket of tickets">
+                        <td>{{ticket.id}}</td>
+                        <td>{{ticket.validUntil}}</td>
+                        <td>{{ticket.name}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ng-template #noPurchases>
+                    <p class="h3">No tickets to show, <a href="/tickets">purchase now</a></p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
