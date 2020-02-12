@@ -3,6 +3,7 @@ package org.fmi.spring.boatyservice.service.impl;
 import org.fmi.spring.boatyservice.exception.ApplicationException;
 import org.fmi.spring.boatyservice.model.Line;
 import org.fmi.spring.boatyservice.repository.LineRepository;
+import org.fmi.spring.boatyservice.repository.TransportTypeRepository;
 import org.fmi.spring.boatyservice.service.LineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class LineServiceImpl implements LineService {
 
    @Autowired
    private LineRepository repository;
+
+   @Autowired
+   private TransportTypeRepository repository2;
 
    @Override
    public List<Line> getAllLines() {

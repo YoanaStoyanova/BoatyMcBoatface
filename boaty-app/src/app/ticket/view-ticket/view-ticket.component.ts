@@ -1,6 +1,9 @@
 import { TicketService } from './../../services/ticket.service';
 import { Component, OnInit } from '@angular/core';
 import { TicketModel } from 'src/app/model/ticket-model';
+import {UserService} from "../../services/user.service";
+import {Observable} from "rxjs";
+import {UserModel} from "../../model/user-model";
 
 @Component({
   selector: 'app-view-ticket',
@@ -8,15 +11,18 @@ import { TicketModel } from 'src/app/model/ticket-model';
 })
 export class ViewTicketComponent implements OnInit {
 
+  currentUser :Observable<UserModel>;
   tickets: Array<TicketModel>;
 
-  constructor(private ticketService: TicketService) { }
+  constructor(private ticketService: TicketService,
+              private userService :UserService) { }
 
   ngOnInit() {
     this.ticketService.getAllTickets().subscribe(tickets =>{
       this.tickets = tickets;
       this.meth();
     });
+    this.currentUser = this.userService.getCurrent();
   }
 
   meth(){
@@ -25,6 +31,10 @@ export class ViewTicketComponent implements OnInit {
 
   delete(ticket: TicketModel) {
     this.ticketService.deleteTicket(ticket).subscribe(() => this.ngOnInit());
+  }
+
+  purchaseTicket(ticket :TicketModel) {
+    this.ticketService.buyTicket(ticket).subscribe();
   }
 
 }

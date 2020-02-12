@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/zones/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/zones/*").hasRole("ADMIN")
             // Tickets
-                .antMatchers(HttpMethod.GET, "/api/tickets").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/tickets").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/tickets/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/tickets").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/tickets/*").hasRole("ADMIN")
@@ -57,6 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/lines/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/lines").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/lines/*").hasRole("ADMIN")
+            // Purchase
+            .antMatchers(HttpMethod.GET, "/api/purchase/ticket/*").authenticated()
+            .antMatchers(HttpMethod.POST, "/api/purchase/ticket/*").hasRole("ADMIN")
 
             .and()
                 .httpBasic()

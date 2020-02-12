@@ -14,13 +14,15 @@ import {RegisterComponent} from "./register/register.component";
 import {PaymentsComponent} from "./payments/payments.component";
 import {AddPaymentComponent} from "./add-payment/add-payment.component";
 import {HomeComponent} from "./home/home.component";
+import {ViewPurchasedTicketsComponent} from "./view-purchased-tickets/view-purchased-tickets.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: RegisterComponent},
   { path: 'admin/tickets/add', component: AddTicketComponent, canActivate: [AuthGuard], data: {allowedRoles: ["ADMIN"]}},
-  { path: 'tickets', component: ViewTicketComponent, canActivate: [AuthGuard], data: {allowedRoles: ["USER"]}},
+  { path: 'purchased-tickets', component: ViewPurchasedTicketsComponent, canActivate: [AuthGuard], data: {allowedRoles: ["USER", "ADMIN"]}},
+  { path: 'tickets', component: ViewTicketComponent, canActivate: [AuthGuard], data: {allowedRoles: ["USER", "ADMIN"]}},
   { path: 'admin/stations/add', component: AddStationComponent, canActivate: [AuthGuard], data: {allowedRoles: ["ADMIN"]}},
   { path: 'admin/stations', component: ViewStationsComponent, canActivate: [AuthGuard], data: {allowedRoles: ["ADMIN"]}},
   { path: 'admin/lines/add', component: AddLineComponent, canActivate: [AuthGuard], data: {allowedRoles: ["ADMIN"]}},
