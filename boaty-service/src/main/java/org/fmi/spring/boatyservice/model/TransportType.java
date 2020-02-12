@@ -1,6 +1,5 @@
 package org.fmi.spring.boatyservice.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 
 @Entity(name = "transportType")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class TransportType {
@@ -24,5 +22,11 @@ public class TransportType {
    private String name;
 
    private String icon;
+
+   public TransportType(Long id, String name, String icon) {
+      this.id = id;
+      this.name = name;
+      this.icon = icon;
+   }
 
 }

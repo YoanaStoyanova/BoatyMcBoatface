@@ -38,10 +38,12 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   }
 
   deleteCard(cardId :number) {
-      this.cardPaymentMethodService.deleteCard(cardId)
-          .subscribe(data => {
-              this.router.navigate(["/payments"]);
-          }, error => { });
+      this.userService.getCurrent().subscribe(user => {
+          this.cardPaymentMethodService.deleteCard(user.id, cardId)
+              .subscribe(data => {
+                  this.router.navigate(["/payments"]);
+              }, error => { });
+      });
   }
 
   private fetchCards() {

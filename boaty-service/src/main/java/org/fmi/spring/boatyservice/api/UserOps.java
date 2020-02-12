@@ -38,7 +38,7 @@ public class UserOps {
         return new UserDetails(userRegistrationService.register(userSpec));
     }
 
-    @RequestMapping
+    @GetMapping
     PagedResponse<UserDetails> viewUsers(
         @RequestParam(name="page", defaultValue = "0") int page,
         @RequestParam(name="size", defaultValue = "20") int size,
