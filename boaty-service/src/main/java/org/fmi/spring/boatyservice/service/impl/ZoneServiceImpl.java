@@ -78,6 +78,10 @@ public class ZoneServiceImpl implements ZoneService {
    @Override
    public Zone deleteZone(Long id) {
       Zone oldZone = loadById(id);
+      oldZone.getStations().forEach(station -> {
+         station.setZone(null);
+         stationService.updateStation(station);
+      });
       repository.deleteById(id);
       return oldZone;
    }

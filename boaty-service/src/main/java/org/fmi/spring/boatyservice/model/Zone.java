@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,11 +28,7 @@ public class Zone {
 
    private String name;
 
-   @OneToMany(
-         fetch = FetchType.EAGER,
-         cascade = CascadeType.MERGE,
-         orphanRemoval = true
-   )
+   @OneToMany(fetch = FetchType.EAGER)
    private Set<Station> stations;
 
    @ManyToMany(mappedBy = "zones")
