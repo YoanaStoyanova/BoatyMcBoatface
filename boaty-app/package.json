@@ -23,7 +23,7 @@
     "@fortawesome/angular-fontawesome": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
-    "ajv": "^6.11.0",
+    "ajv": "^6.12.3",
     "ajv-keywords": "^3.4.1",
     "bootstrap": "^4.0.0",
     "bs-stepper": "^1.7.0",
